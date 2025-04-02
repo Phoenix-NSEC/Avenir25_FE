@@ -7,16 +7,29 @@ import Sponsers from "./components/Sponsors";
 import TimeLine from "./components/TimeLine";
 
 const App = () => {
-  return <div>Avenir FE
-
-    {/* <Navbar/> */}
-    <Hero/>
-    <Events/>
-    <TimeLine/>
-    <About/>
-    <Sponsers/>
-    <ContactUs/>
-  </div>;
+  return (
+    <div className="bg-gray-900 min-h-screen text-white">
+      <Navbar />
+      <section id="home" className="pt-20 md:pt-24">
+        <Hero />
+      </section>
+      <section id="events">
+        <Events />
+      </section>
+      <section id="timeline">
+        <TimeLine />
+      </section>
+      <section id="about">
+        <About />
+      </section>
+      <section id="sponsors">
+        <Sponsers />
+      </section>
+      <section id="contact">
+        <ContactUs />
+      </section>
+    </div>
+  );
 };
 
 export default App;

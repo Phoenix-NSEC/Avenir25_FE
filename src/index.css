@@ -3,6 +3,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* In your global CSS file */
+body {
+
+  background-color: black;
+  color: #f3f4f6; /* This is Tailwind's text-gray-100 */
+  min-height: 100vh;
+}
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
