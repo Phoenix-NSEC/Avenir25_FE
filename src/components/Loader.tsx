@@ -131,4 +131,3 @@ export default function Loader() {
     </motion.div>
   )
 }
-

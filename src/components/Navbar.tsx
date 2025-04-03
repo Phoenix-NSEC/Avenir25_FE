@@ -52,10 +52,11 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", href: "#home" },
     { name: "Events", href: "#events" },
+    { name: "Timeline", href: "#timeline" },
     { name: "About", href: "#about" },
-    { name: "Register", href: "#register" },
+  
     { name: "Sponsors", href: "#sponsors" },
-    { name: "Contact", href: "#contact" },
+    // { name: "Contact", href: "#contact" },
   ]
 
   return (
