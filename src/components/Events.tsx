@@ -104,7 +104,7 @@ export default function Events() {
   const filteredEvents = activeCategory === "All" ? events : events.filter((event) => event.category === activeCategory)
 
   return (
-    <section id="events" className="py-20 px-4 sm:px-6 relative overflow-hidden bg-black">
+    <section id="events" className="py-20 px-4 sm:px-6 relative overflow-hidden bg-transparent">
       <div className="max-w-7xl mx-auto relative z-10" ref={containerRef}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

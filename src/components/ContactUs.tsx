@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function ContactUs() {
   return (
     <footer className="relative border-t border-purple-900/50 bg-black text-white">

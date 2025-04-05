@@ -1,9 +1,6 @@
-
-
 "use client"
 
 import { useState, useEffect } from "react"
-// import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Sparkles } from "lucide-react"
 
@@ -11,6 +8,17 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeLink, setActiveLink] = useState("home")
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    // This will make the navbar only appear after the loading is done
+    // Initial delay to match the loader duration in App.js (3500ms)
+    const timer = setTimeout(() => {
+      setIsVisible(true)
+    }, 3500)
+
+    return () => clearTimeout(timer)
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,13 +62,20 @@ export default function Navbar() {
     { name: "Events", href: "#events" },
     { name: "Timeline", href: "#timeline" },
     { name: "About", href: "#about" },
-  
     { name: "Sponsors", href: "#sponsors" },
     // { name: "Contact", href: "#contact" },
   ]
 
+  // Don't render anything if not visible yet
+  if (!isVisible) {
+    return null
+  }
+
   return (
-    <nav
+    <motion.nav
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-2 sm:py-3 md:py-4 px-4 sm:px-5 md:px-6 ${
         scrolled ? "bg-black/80 backdrop-blur-md shadow-lg shadow-purple-500/10" : "bg-transparent"
       }`}
@@ -185,6 +200,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   )
 }

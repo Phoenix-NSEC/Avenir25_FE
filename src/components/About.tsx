@@ -11,7 +11,8 @@ export default function About() {
   return (
     <section id="about" className="relative py-20 px-4 sm:px-6 overflow-hidden">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b bg-black" />
+      <div className="absolute  pointer-events-none" />
+
 
       <div className="container mx-auto relative z-10">
         <motion.div

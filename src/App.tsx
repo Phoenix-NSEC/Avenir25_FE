@@ -8,6 +8,7 @@ import Sponsers from "./components/Sponsors";
 import TimeLine from "./components/TimeLine";
 import { useEffect, useState } from "react";
 import Loader from "./components/Loader";
+import AnimatedBackground from "./components/AnimatedBackground";
 
 const App = () => {
 
@@ -28,8 +29,9 @@ const App = () => {
   return (
     <div className="bg-gray-900 min-h-screen text-white">
       <AnimatePresence>{loading && <Loader />}</AnimatePresence>
+      <AnimatedBackground />
       <Navbar />
-      <section id="home" className="pt-20 md:pt-24">
+      <section id="home">
         <Hero />
       </section>
       <section id="events">
