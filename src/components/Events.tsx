@@ -1,5 +1,5 @@
 "use client";
-
+import axios from "axios";
 import type React from "react";
 
 import { useState, useRef, useEffect } from "react";
@@ -94,18 +94,14 @@ export default function Events() {
     const fetchEvents = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch("http://localhost:4000/api/v1/events");
+        const response = await axios.get("http://localhost:4000/api/v1/events");
         console.log(response);
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch events");
-        }
-        const data = await response.json();
-        setEvents(data.data);
+        const data = await response.data;
+        setEvents(data.events);
 
         // Extract unique categories
         const uniqueCategories: string[] = Array.from(
-          new Set(data.data.map((event: Event) => event.category))
+          new Set(data.events.map((event: Event) => event.category))
         );
         setCategories(uniqueCategories);
 
@@ -379,9 +375,9 @@ export default function Events() {
           >
             All Events
           </button>
-          {categories.map((category) => (
+          {categories.map((category,index) => (
             <button
-              key={category}
+              key={category||index}
               className={`px-4 py-2 rounded ${
                 activeCategory === category
                   ? "bg-gradient-to-r from-purple-600 to-cyan-500 text-white"
@@ -398,7 +394,7 @@ export default function Events() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredEvents.map((event, index) => (
             <motion.div
-              key={event._id}
+              key={event._id||index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 * index }}
