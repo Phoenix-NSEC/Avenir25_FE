@@ -1,66 +1,76 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, useRef, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Calendar, Clock, MapPin, Users, ArrowRight, X, Sparkles } from "lucide-react"
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Calendar,
+  Clock,
+  MapPin,
+  Users,
+  ArrowRight,
+  X,
+  Sparkles,
+} from "lucide-react";
 
 type Member = {
-  name: string
-  info: string
-}
+  name: string;
+  info: string;
+};
 
 type Event = {
-  _id: string
-  title: string
-  category: string
-  subcategory?: string
-  description: string
-  date: string
-  time: string
-  venue: string
-  teamSize: string
-  isTeamEvent: boolean
-  image: string
-}
+  _id: string;
+  title: string;
+  category: string;
+  subcategory?: string;
+  description: string;
+  date: string;
+  time: string;
+  venue: string;
+  teamSize: string;
+  isTeamEvent: boolean;
+  image: string;
+};
 
 type RegistrationSingleData = {
-  event: string
-  name: string
-  collegeName: string
-  whatsappNumber: string
-  alternateNumber: string
-  email: string
-  payment: string
-  isVerified: boolean
-}
+  event: string;
+  name: string;
+  collegeName: string;
+  whatsappNumber: string;
+  alternateNumber: string;
+  email: string;
+  payment: string;
+  isVerified: boolean;
+};
 
 type RegistrationTeamData = {
-  event: string
-  teamName: string
-  teamLeaderName: string
-  collegeName: string
-  whatsappNumber: string
-  alternateNumber: string
-  email: string
-  payment: string
-  isVerified: boolean
-  members: Member[]
-}
+  event: string;
+  teamName: string;
+  teamLeaderName: string;
+  collegeName: string;
+  whatsappNumber: string;
+  alternateNumber: string;
+  email: string;
+  payment: string;
+  isVerified: boolean;
+  members: Member[];
+};
 
 export default function Events() {
-  const [events, setEvents] = useState<Event[]>([])
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
-  const [categories, setCategories] = useState<string[]>([])
-  const [activeCategory, setActiveCategory] = useState<string>("All")
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const [events, setEvents] = useState<Event[]>([]);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // For registration form
-  const [showRegistrationForm, setShowRegistrationForm] = useState(false)
-  const [formData, setFormData] = useState<RegistrationSingleData | RegistrationTeamData>({
+  const [showRegistrationForm, setShowRegistrationForm] = useState(false);
+  const [formData, setFormData] = useState<
+    RegistrationSingleData | RegistrationTeamData
+  >({
     event: "",
     name: "",
     collegeName: "",
@@ -69,95 +79,115 @@ export default function Events() {
     email: "",
     payment: "unpaid",
     isVerified: false,
-  })
-  const [teamMembers, setTeamMembers] = useState<Member[]>([{ name: "", info: "" }])
-  const [paymentImage, setPaymentImage] = useState<File | null>(null)
-  const [registrationSuccess, setRegistrationSuccess] = useState(false)
-  const [registrationError, setRegistrationError] = useState<string | null>(null)
+  });
+  const [teamMembers, setTeamMembers] = useState<Member[]>([
+    { name: "", info: "" },
+  ]);
+  const [paymentImage, setPaymentImage] = useState<File | null>(null);
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [registrationError, setRegistrationError] = useState<string | null>(
+    null
+  );
 
   // Fetch all events
   useEffect(() => {
     const fetchEvents = async () => {
-      setIsLoading(true)
+      setIsLoading(true);
       try {
-        const response = await fetch("http://127.0.0.1:3000/api/v1/events")
+        const response = await fetch("http://localhost:4000/api/v1/events");
+        console.log(response);
+
         if (!response.ok) {
-          throw new Error("Failed to fetch events")
+          throw new Error("Failed to fetch events");
         }
-        const data = await response.json()
-        setEvents(data.data)
+        const data = await response.json();
+        setEvents(data.data);
 
         // Extract unique categories
-        const uniqueCategories = Array.from(new Set(data.data.map((event: Event) => event.category)))
-        setCategories(uniqueCategories)
+        const uniqueCategories: string[] = Array.from(
+          new Set(data.data.map((event: Event) => event.category))
+        );
+        setCategories(uniqueCategories);
 
-        setIsLoading(false)
+        setIsLoading(false);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred")
-        setIsLoading(false)
+        setError(err instanceof Error ? err.message : "An error occurred");
+        setIsLoading(false);
       }
-    }
+    };
 
-    fetchEvents()
-  }, [])
+    fetchEvents();
+  }, []);
 
   // Filter events based on selected category
-  const filteredEvents = activeCategory === "All" ? events : events.filter((event) => event.category === activeCategory)
+  const filteredEvents =
+    activeCategory === "All"
+      ? events
+      : events.filter((event) => event.category === activeCategory);
 
   // Handle form input changes for individual registration
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-  }
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   // Handle team member changes
-  const handleTeamMemberChange = (index: number, field: string, value: string) => {
-    const updatedMembers = [...teamMembers]
-    updatedMembers[index] = { ...updatedMembers[index], [field]: value }
-    setTeamMembers(updatedMembers)
-  }
+  const handleTeamMemberChange = (
+    index: number,
+    field: string,
+    value: string
+  ) => {
+    const updatedMembers = [...teamMembers];
+    updatedMembers[index] = { ...updatedMembers[index], [field]: value };
+    setTeamMembers(updatedMembers);
+  };
 
   // Add new team member field
   const addTeamMember = () => {
-    setTeamMembers([...teamMembers, { name: "", info: "" }])
-  }
+    setTeamMembers([...teamMembers, { name: "", info: "" }]);
+  };
 
   // Remove team member field
   const removeTeamMember = (index: number) => {
-    const updatedMembers = teamMembers.filter((_, i) => i !== index)
-    setTeamMembers(updatedMembers)
-  }
+    const updatedMembers = teamMembers.filter((_, i) => i !== index);
+    setTeamMembers(updatedMembers);
+  };
 
   // Handle payment image upload
   const handlePaymentImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setPaymentImage(e.target.files[0])
+      setPaymentImage(e.target.files[0]);
     }
-  }
+  };
 
   // Handle registration form submission
   const handleRegistrationSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setRegistrationError(null)
+    e.preventDefault();
+    setRegistrationError(null);
 
     try {
       // Upload payment image first if available
-      let paymentUrl = ""
+      let paymentUrl = "";
       if (paymentImage) {
-        const formData = new FormData()
-        formData.append("payment", paymentImage)
+        const formData = new FormData();
+        formData.append("payment", paymentImage);
 
-        const uploadResponse = await fetch("http://127.0.0.1:3000/api/v1/registration/upload", {
-          method: "POST",
-          body: formData,
-        })
+        const uploadResponse = await fetch(
+          "http://127.0.0.1:3000/api/v1/registration/upload",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
 
         if (!uploadResponse.ok) {
-          throw new Error("Payment image upload failed")
+          throw new Error("Payment image upload failed");
         }
 
-        const uploadData = await uploadResponse.json()
-        paymentUrl = uploadData.data.url
+        const uploadData = await uploadResponse.json();
+        paymentUrl = uploadData.data.url;
       }
 
       // Prepare registration data
@@ -165,7 +195,8 @@ export default function Events() {
         ? {
             event: selectedEvent.title,
             teamName: (formData as RegistrationTeamData).teamName || "",
-            teamLeaderName: (formData as RegistrationTeamData).teamLeaderName || "",
+            teamLeaderName:
+              (formData as RegistrationTeamData).teamLeaderName || "",
             collegeName: formData.collegeName,
             whatsappNumber: formData.whatsappNumber,
             alternateNumber: formData.alternateNumber,
@@ -183,12 +214,12 @@ export default function Events() {
             email: formData.email,
             payment: paymentUrl ? "paid" : "unpaid",
             isVerified: false,
-          }
+          };
 
       // Submit registration
       const endpoint = selectedEvent?.isTeamEvent
         ? "http://127.0.0.1:3000/api/v1/registration/multi"
-        : "http://127.0.0.1:3000/api/v1/registration/single"
+        : "http://127.0.0.1:3000/api/v1/registration/single";
 
       const response = await fetch(endpoint, {
         method: "POST",
@@ -196,16 +227,16 @@ export default function Events() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(registrationData),
-      })
+      });
 
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.message || "Registration failed")
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Registration failed");
       }
 
       // Registration successful
-      setRegistrationSuccess(true)
-      setShowRegistrationForm(false)
+      setRegistrationSuccess(true);
+      setShowRegistrationForm(false);
 
       // Reset form
       setFormData({
@@ -217,18 +248,20 @@ export default function Events() {
         email: "",
         payment: "unpaid",
         isVerified: false,
-      })
-      setTeamMembers([{ name: "", info: "" }])
-      setPaymentImage(null)
+      });
+      setTeamMembers([{ name: "", info: "" }]);
+      setPaymentImage(null);
     } catch (err) {
-      setRegistrationError(err instanceof Error ? err.message : "Registration failed")
+      setRegistrationError(
+        err instanceof Error ? err.message : "Registration failed"
+      );
     }
-  }
+  };
 
   // Open registration form
   const openRegistrationForm = () => {
     if (selectedEvent) {
-      setShowRegistrationForm(true)
+      setShowRegistrationForm(true);
 
       // Initialize form data based on event type
       if (selectedEvent.isTeamEvent) {
@@ -243,8 +276,8 @@ export default function Events() {
           payment: "unpaid",
           isVerified: false,
           members: [],
-        })
-        setTeamMembers([{ name: "", info: "" }])
+        });
+        setTeamMembers([{ name: "", info: "" }]);
       } else {
         setFormData({
           event: selectedEvent.title,
@@ -255,10 +288,10 @@ export default function Events() {
           email: "",
           payment: "unpaid",
           isVerified: false,
-        })
+        });
       }
     }
-  }
+  };
 
   if (isLoading) {
     return (
@@ -268,7 +301,7 @@ export default function Events() {
           <p className="mt-4 text-gray-300">Loading events...</p>
         </div>
       </section>
-    )
+    );
   }
 
   if (error) {
@@ -286,11 +319,14 @@ export default function Events() {
           </div>
         </div>
       </section>
-    )
+    );
   }
 
   return (
-    <section id="events" className="py-20 px-4 sm:px-6 relative overflow-hidden bg-transparent">
+    <section
+      id="events"
+      className="py-20 px-4 sm:px-6 relative overflow-hidden bg-transparent"
+    >
       <div className="max-w-7xl mx-auto relative z-10" ref={containerRef}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -305,14 +341,17 @@ export default function Events() {
             </span>
           </h2>
           <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-            Discover our lineup of mystical tech events that will challenge your skills and expand your horizons.
+            Discover our lineup of mystical tech events that will challenge your
+            skills and expand your horizons.
           </p>
         </motion.div>
 
         {/* Registration success message */}
         {registrationSuccess && (
           <div className="mb-8 bg-green-500/20 border border-green-500 p-4 rounded-lg">
-            <p className="text-green-300 text-center">Registration submitted successfully!</p>
+            <p className="text-green-300 text-center">
+              Registration submitted successfully!
+            </p>
             <button
               className="mt-2 mx-auto block px-4 py-1 bg-green-500/30 text-green-300 rounded hover:bg-green-500/40"
               onClick={() => setRegistrationSuccess(false)}
@@ -331,7 +370,11 @@ export default function Events() {
           className="flex flex-wrap justify-center gap-3 mb-12"
         >
           <button
-            className={`px-4 py-2 rounded ${activeCategory === "All" ? "bg-gradient-to-r from-purple-600 to-cyan-500 text-white" : "border border-purple-500 text-white hover:bg-purple-500/20"}`}
+            className={`px-4 py-2 rounded ${
+              activeCategory === "All"
+                ? "bg-gradient-to-r from-purple-600 to-cyan-500 text-white"
+                : "border border-purple-500 text-white hover:bg-purple-500/20"
+            }`}
             onClick={() => setActiveCategory("All")}
           >
             All Events
@@ -339,7 +382,11 @@ export default function Events() {
           {categories.map((category) => (
             <button
               key={category}
-              className={`px-4 py-2 rounded ${activeCategory === category ? "bg-gradient-to-r from-purple-600 to-cyan-500 text-white" : "border border-purple-500 text-white hover:bg-purple-500/20"}`}
+              className={`px-4 py-2 rounded ${
+                activeCategory === category
+                  ? "bg-gradient-to-r from-purple-600 to-cyan-500 text-white"
+                  : "border border-purple-500 text-white hover:bg-purple-500/20"
+              }`}
               onClick={() => setActiveCategory(category)}
             >
               {category}
@@ -379,9 +426,13 @@ export default function Events() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-xl text-white group-hover:text-purple-400 transition-colors">{event.title}</h3>
+                  <h3 className="text-xl text-white group-hover:text-purple-400 transition-colors">
+                    {event.title}
+                  </h3>
                   <p className="text-gray-400">
-                    {event.description.length > 100 ? `${event.description.substring(0, 100)}...` : event.description}
+                    {event.description.length > 100
+                      ? `${event.description.substring(0, 100)}...`
+                      : event.description}
                   </p>
                   <div className="space-y-2 text-sm text-gray-400 mt-2">
                     <div className="flex items-center gap-2">
@@ -453,8 +504,12 @@ export default function Events() {
                       </span>
                     )}
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{selectedEvent.title}</h3>
-                  <p className="text-gray-300 mb-6">{selectedEvent.description}</p>
+                  <h3 className="text-2xl font-bold text-white mb-4">
+                    {selectedEvent.title}
+                  </h3>
+                  <p className="text-gray-300 mb-6">
+                    {selectedEvent.description}
+                  </p>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <div className="bg-white/5 p-4 rounded-lg border border-purple-500/10 hover:border-purple-500/30 transition-colors duration-300">
@@ -476,14 +531,20 @@ export default function Events() {
                         <MapPin className="h-5 w-5 text-purple-400" />
                         <span className="font-medium text-white">Venue</span>
                       </div>
-                      <p className="text-gray-300 pl-7">{selectedEvent.venue}</p>
+                      <p className="text-gray-300 pl-7">
+                        {selectedEvent.venue}
+                      </p>
                     </div>
                     <div className="bg-white/5 p-4 rounded-lg border border-purple-500/10 hover:border-purple-500/30 transition-colors duration-300">
                       <div className="flex items-center gap-2 mb-2">
                         <Users className="h-5 w-5 text-purple-400" />
-                        <span className="font-medium text-white">Team Size</span>
+                        <span className="font-medium text-white">
+                          Team Size
+                        </span>
                       </div>
-                      <p className="text-gray-300 pl-7">{selectedEvent.teamSize}</p>
+                      <p className="text-gray-300 pl-7">
+                        {selectedEvent.teamSize}
+                      </p>
                     </div>
                   </div>
 
@@ -524,7 +585,9 @@ export default function Events() {
               >
                 <div className="p-6">
                   <div className="flex justify-between items-center mb-6">
-                    <h3 className="text-2xl font-bold text-white">Register for {selectedEvent.title}</h3>
+                    <h3 className="text-2xl font-bold text-white">
+                      Register for {selectedEvent.title}
+                    </h3>
                     <button
                       className="bg-black/50 hover:bg-black/70 text-white rounded-full p-2"
                       onClick={() => setShowRegistrationForm(false)}
@@ -539,12 +602,18 @@ export default function Events() {
                     </div>
                   )}
 
-                  <form onSubmit={handleRegistrationSubmit} className="space-y-4">
+                  <form
+                    onSubmit={handleRegistrationSubmit}
+                    className="space-y-4"
+                  >
                     {/* Individual event registration form */}
                     {!selectedEvent.isTeamEvent ? (
                       <div className="space-y-4">
                         <div>
-                          <label htmlFor="name" className="block text-gray-300 mb-1">
+                          <label
+                            htmlFor="name"
+                            className="block text-gray-300 mb-1"
+                          >
                             Your Name
                           </label>
                           <input
@@ -552,7 +621,9 @@ export default function Events() {
                             id="name"
                             name="name"
                             required
-                            value={(formData as RegistrationSingleData).name || ""}
+                            value={
+                              (formData as RegistrationSingleData).name || ""
+                            }
                             onChange={handleInputChange}
                             className="w-full bg-gray-800/50 border border-purple-500/30 rounded p-2 text-white"
                           />
@@ -562,7 +633,10 @@ export default function Events() {
                       // Team event registration form
                       <div className="space-y-4">
                         <div>
-                          <label htmlFor="teamName" className="block text-gray-300 mb-1">
+                          <label
+                            htmlFor="teamName"
+                            className="block text-gray-300 mb-1"
+                          >
                             Team Name
                           </label>
                           <input
@@ -570,13 +644,18 @@ export default function Events() {
                             id="teamName"
                             name="teamName"
                             required
-                            value={(formData as RegistrationTeamData).teamName || ""}
+                            value={
+                              (formData as RegistrationTeamData).teamName || ""
+                            }
                             onChange={handleInputChange}
                             className="w-full bg-gray-800/50 border border-purple-500/30 rounded p-2 text-white"
                           />
                         </div>
                         <div>
-                          <label htmlFor="teamLeaderName" className="block text-gray-300 mb-1">
+                          <label
+                            htmlFor="teamLeaderName"
+                            className="block text-gray-300 mb-1"
+                          >
                             Team Leader Name
                           </label>
                           <input
@@ -584,7 +663,10 @@ export default function Events() {
                             id="teamLeaderName"
                             name="teamLeaderName"
                             required
-                            value={(formData as RegistrationTeamData).teamLeaderName || ""}
+                            value={
+                              (formData as RegistrationTeamData)
+                                .teamLeaderName || ""
+                            }
                             onChange={handleInputChange}
                             className="w-full bg-gray-800/50 border border-purple-500/30 rounded p-2 text-white"
                           />
@@ -593,7 +675,9 @@ export default function Events() {
                         {/* Team members */}
                         <div className="space-y-4">
                           <div className="flex justify-between items-center">
-                            <label className="block text-gray-300">Team Members</label>
+                            <label className="block text-gray-300">
+                              Team Members
+                            </label>
                             <button
                               type="button"
                               onClick={addTeamMember}
@@ -604,9 +688,14 @@ export default function Events() {
                           </div>
 
                           {teamMembers.map((member, index) => (
-                            <div key={index} className="p-4 bg-gray-800/30 border border-purple-500/20 rounded">
+                            <div
+                              key={index}
+                              className="p-4 bg-gray-800/30 border border-purple-500/20 rounded"
+                            >
                               <div className="flex justify-between items-center mb-2">
-                                <h4 className="text-gray-300">Member {index + 1}</h4>
+                                <h4 className="text-gray-300">
+                                  Member {index + 1}
+                                </h4>
                                 {index > 0 && (
                                   <button
                                     type="button"
@@ -619,21 +708,37 @@ export default function Events() {
                               </div>
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                  <label className="block text-gray-400 text-sm mb-1">Name</label>
+                                  <label className="block text-gray-400 text-sm mb-1">
+                                    Name
+                                  </label>
                                   <input
                                     type="text"
                                     required
                                     value={member.name}
-                                    onChange={(e) => handleTeamMemberChange(index, "name", e.target.value)}
+                                    onChange={(e) =>
+                                      handleTeamMemberChange(
+                                        index,
+                                        "name",
+                                        e.target.value
+                                      )
+                                    }
                                     className="w-full bg-gray-800/50 border border-purple-500/30 rounded p-2 text-white"
                                   />
                                 </div>
                                 <div>
-                                  <label className="block text-gray-400 text-sm mb-1">Role/Info</label>
+                                  <label className="block text-gray-400 text-sm mb-1">
+                                    Role/Info
+                                  </label>
                                   <input
                                     type="text"
                                     value={member.info}
-                                    onChange={(e) => handleTeamMemberChange(index, "info", e.target.value)}
+                                    onChange={(e) =>
+                                      handleTeamMemberChange(
+                                        index,
+                                        "info",
+                                        e.target.value
+                                      )
+                                    }
                                     className="w-full bg-gray-800/50 border border-purple-500/30 rounded p-2 text-white"
                                   />
                                 </div>
@@ -647,7 +752,10 @@ export default function Events() {
                     {/* Common fields for both individual and team registration */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="collegeName" className="block text-gray-300 mb-1">
+                        <label
+                          htmlFor="collegeName"
+                          className="block text-gray-300 mb-1"
+                        >
                           College Name
                         </label>
                         <input
@@ -661,7 +769,10 @@ export default function Events() {
                         />
                       </div>
                       <div>
-                        <label htmlFor="email" className="block text-gray-300 mb-1">
+                        <label
+                          htmlFor="email"
+                          className="block text-gray-300 mb-1"
+                        >
                           Email
                         </label>
                         <input
@@ -675,7 +786,10 @@ export default function Events() {
                         />
                       </div>
                       <div>
-                        <label htmlFor="whatsappNumber" className="block text-gray-300 mb-1">
+                        <label
+                          htmlFor="whatsappNumber"
+                          className="block text-gray-300 mb-1"
+                        >
                           WhatsApp Number
                         </label>
                         <input
@@ -689,7 +803,10 @@ export default function Events() {
                         />
                       </div>
                       <div>
-                        <label htmlFor="alternateNumber" className="block text-gray-300 mb-1">
+                        <label
+                          htmlFor="alternateNumber"
+                          className="block text-gray-300 mb-1"
+                        >
                           Alternate Number
                         </label>
                         <input
@@ -705,7 +822,10 @@ export default function Events() {
 
                     {/* Payment upload */}
                     <div>
-                      <label htmlFor="paymentProof" className="block text-gray-300 mb-1">
+                      <label
+                        htmlFor="paymentProof"
+                        className="block text-gray-300 mb-1"
+                      >
                         Payment Proof
                       </label>
                       <div className="border-2 border-dashed border-purple-500/30 rounded-lg p-4 text-center">
@@ -716,24 +836,36 @@ export default function Events() {
                           onChange={handlePaymentImageChange}
                           className="hidden"
                         />
-                        <label htmlFor="paymentProof" className="cursor-pointer">
+                        <label
+                          htmlFor="paymentProof"
+                          className="cursor-pointer"
+                        >
                           <div className="flex flex-col items-center justify-center gap-2">
                             {paymentImage ? (
                               <>
                                 <img
-                                  src={URL.createObjectURL(paymentImage) || "/placeholder.svg"}
+                                  src={
+                                    URL.createObjectURL(paymentImage) ||
+                                    "/placeholder.svg"
+                                  }
                                   alt="Payment proof"
                                   className="max-h-32 object-contain mb-2"
                                 />
-                                <p className="text-sm text-green-400">✓ Image uploaded</p>
+                                <p className="text-sm text-green-400">
+                                  ✓ Image uploaded
+                                </p>
                               </>
                             ) : (
                               <>
                                 <div className="p-3 rounded-full bg-purple-500/20">
                                   <ArrowRight className="h-6 w-6 text-purple-400" />
                                 </div>
-                                <p className="text-gray-300">Click to upload payment proof</p>
-                                <p className="text-xs text-gray-500">Supported formats: JPG, PNG</p>
+                                <p className="text-gray-300">
+                                  Click to upload payment proof
+                                </p>
+                                <p className="text-xs text-gray-500">
+                                  Supported formats: JPG, PNG
+                                </p>
                               </>
                             )}
                           </div>
@@ -758,6 +890,5 @@ export default function Events() {
         </AnimatePresence>
       </div>
     </section>
-  )
+  );
 }
-
