@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { useInView, motion, useAnimation } from "framer-motion";
+import { sponsorsByTier } from "../constants/sponsors";
 
 const Sponsors = () => {
   const ref = useRef(null);
@@ -20,49 +21,14 @@ const Sponsors = () => {
   }, []);
 
   // Enhanced sponsors list with tier information
-  const sponsorsByTier = {
-    platinum: [
-      { name: "TechCorp", logo: "https://play-lh.googleusercontent.com/W4p1Tw8NsxjjkOEypI_pyLfn0OnWtUHevdrCWv3wgUESHqSjgvtXY12XWIeWfXk5e-YL=w3840-h2160-rw", tier: "platinum" },
-      { name: "InnovateLabs", logo: "https://play-lh.googleusercontent.com/W4p1Tw8NsxjjkOEypI_pyLfn0OnWtUHevdrCWv3wgUESHqSjgvtXY12XWIeWfXk5e-YL=w3840-h2160-rw", tier: "platinum" },
-    ],
-    gold: [
-      { name: "FutureTech", logo: "https://play-lh.googleusercontent.com/W4p1Tw8NsxjjkOEypI_pyLfn0OnWtUHevdrCWv3wgUESHqSjgvtXY12XWIeWfXk5e-YL=w3840-h2160-rw", tier: "gold" },
-      { name: "CodeMagic", logo: "https://play-lh.googleusercontent.com/W4p1Tw8NsxjjkOEypI_pyLfn0OnWtUHevdrCWv3wgUESHqSjgvtXY12XWIeWfXk5e-YL=w3840-h2160-rw", tier: "gold" },
-    ],
-    normal: [
-      { name: "RoboWizards", logo: "https://play-lh.googleusercontent.com/W4p1Tw8NsxjjkOEypI_pyLfn0OnWtUHevdrCWv3wgUESHqSjgvtXY12XWIeWfXk5e-YL=w3840-h2160-rw", tier: "normal" },
-    ]
-  };
+
 
   // Combine all sponsors into a single array for rendering
   const allSponsors = Object.values(sponsorsByTier).flat();
   
-  const team = [
-    { name: "Alex Merlin", role: "Event Director", image: "/api/placeholder/400/500" },
-    { name: "Sam Spellcaster", role: "Technical Lead", image: "/api/placeholder/400/500" },
-    { name: "Jordan Enchanter", role: "Marketing Head", image: "/api/placeholder/400/500" },
-    { name: "Taylor Sorcerer", role: "Sponsorship Coordinator", image: "/api/placeholder/400/500" },
-  ];
 
-  // Variants for staggered animations
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, type: "spring", stiffness: 50 }
-    }
-  };
+
 
   // Maps tier names to colors for styling
   const tierConfig = {
@@ -122,14 +88,16 @@ const Sponsors = () => {
   }, [isInView, sponsorsControls, isMobile, allSponsors.length]);
 
   // Beautiful creative heading with magical elements
-  const EnchantedHeading = ({ children, delay = 0.3, color = "purple" }) => {
+  const EnchantedHeading = ({ children, delay = 0.3, color = "purple" }:any) => {
     const colorMap = {
       purple: "from-purple-400 via-cyan-300 to-purple-400",
       gold: "from-yellow-400 via-amber-300 to-yellow-400",
       cyan: "from-cyan-400 via-blue-300 to-cyan-400"
     };
     
-    const bgGradient = colorMap[color] || colorMap.purple;
+   
+    const bgGradient = colorMap[color as keyof typeof colorMap] || colorMap.purple;
+
     
     return (
       <div className="relative mb-16 mt-8">
@@ -225,9 +193,10 @@ const Sponsors = () => {
   };
 
   // Sponsor card for each item
-  const SponsorCard = ({ sponsor, index }) => {
+  const SponsorCard = ({ sponsor, index }:any) => {
     const tier = sponsor.tier || "normal";
-    const config = tierConfig[tier];
+    const config = tierConfig[tier as keyof typeof tierConfig];
+
     
     return (
       <motion.div
@@ -273,7 +242,7 @@ const Sponsors = () => {
           
           {/* Tier badge for platinum and gold sponsors */}
           {tier !== "normal" && (
-            <div className={`absolute top-2 right-2 px-2 py-0.5 rounded-full text-xs text-white ${config.badgeStyle} font-medium opacity-70 group-hover:opacity-100 transition-opacity duration-300`}>
+            <div className={`absolute top-2 right-2 px-2 py-0.5 z-10 rounded-full text-xs text-white ${config.badgeStyle} font-medium opacity-100 group-hover:opacity-100 transition-opacity duration-300`}>
               {tier.charAt(0).toUpperCase() + tier.slice(1)}
             </div>
           )}
@@ -489,92 +458,8 @@ const Sponsors = () => {
             </div>
           </div>
 
-          <EnchantedHeading delay={0.6}>The Wizards Behind Avenir</EnchantedHeading>
-
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16"
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-          >
-            {team.map((member) => (
-              <motion.div
-                key={member.name}
-                variants={itemVariants}
-                whileHover={{ 
-                  y: -10,
-                  boxShadow: "0 10px 25px rgba(139, 92, 246, 0.3)",
-                  transition: { duration: 0.3 }
-                }}
-                className="bg-gradient-to-br from-black/60 to-black/80 backdrop-blur-lg rounded-xl border border-purple-500/20 hover:border-purple-400/50 transition-all duration-300 overflow-hidden group"
-              >
-                <div className="relative">
-                  <img src={member.image} alt={member.name} className="w-full h-64 object-cover" />
-                  
-                  {/* Enhanced overlay gradient */}
-                  <motion.div 
-                    className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-70 group-hover:opacity-60 transition-opacity duration-300"
-                    whileHover={{ opacity: 0.6 }}
-                  />
-                  
-                  {/* Enhanced magical particle effects on hover */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 overflow-hidden">
-                    {[...Array(8)].map((_, i) => (
-                      <div 
-                        key={i}
-                        className="absolute w-1 h-1 rounded-full bg-purple-400 animate-pulse"
-                        style={{ 
-                          top: `${25 + (i * 7) % 50}%`, 
-                          left: `${20 + (i * 9) % 60}%`,
-                          width: i % 2 ? '4px' : '6px',
-                          height: i % 2 ? '4px' : '6px',
-                          animationDelay: `${i * 0.2}s`,
-                          animationDuration: `${1 + (i % 3)}s`
-                        }} 
-                      />
-                    ))}
-                  </div>
-                  
-                  {/* Magical sparkle effect on hover */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                    {[...Array(5)].map((_, i) => (
-                      <motion.div
-                        key={`sparkle-${i}`}
-                        className="absolute w-1 h-1 bg-white rounded-full"
-                        animate={{
-                          scale: [0, 1.5, 0],
-                          opacity: [0, 1, 0],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          delay: i * 0.4,
-                          repeatDelay: 0.2
-                        }}
-                        style={{
-                          top: `${20 + (i * 15)}%`,
-                          left: `${15 + (i * 20)}%`,
-                          boxShadow: '0 0 8px 2px rgba(255, 255, 255, 0.8)'
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
-                
-                <div className="p-6 text-center relative z-10">
-                  <h3 className="text-xl font-bold mb-2 text-white group-hover:text-purple-300 transition-colors duration-300">{member.name}</h3>
-                  <p className="text-purple-400 group-hover:text-cyan-400 transition-colors duration-300">{member.role}</p>
-                  
-                  <motion.div 
-                    initial={{ width: "0%" }}
-                    whileHover={{ width: "70%" }}
-                    transition={{ duration: 0.4 }}
-                    className="h-0.5 bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto mt-4"
-                  />
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+          
+          
         </div>
       </div>
     </div>
