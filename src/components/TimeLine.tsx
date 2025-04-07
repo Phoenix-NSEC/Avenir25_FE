@@ -25,7 +25,7 @@ const TimeLine = () => {
 
         <div className="relative">
           {/* Center line with improved visibility */}
-          <div className="absolute left-1/2 top-0 bottom-0 transform -translate-x-1/2 w-1 bg-gradient-to-b from-purple-600 via-cyan-500 to-purple-600 z-0" />
+          <div className="absolute lg:left-1/2  top-0 bottom-0 transform -translate-x-1/2 w-1 bg-gradient-to-b from-purple-600 via-cyan-500 to-purple-600 z-0" />
 
           <div className="grid grid-cols-1 gap-4 relative z-10">
             {timelineItems.map((item, index) => (
@@ -43,7 +43,7 @@ const TimeLine = () => {
                 className="relative"
               >
                 {/* Timeline dot with higher contrast */}
-                <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 flex items-center justify-center">
+                <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 items-center justify-center">
                   <motion.div 
                     className="relative flex items-center justify-center"
                     whileInView={{ scale: [0.8, 1.2, 1] }}
@@ -61,7 +61,7 @@ const TimeLine = () => {
                 <div className={`flex ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}>
                   <div className={`w-full md:w-1/2 ${index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"}`}>
                     <motion.div 
-                      className="p-6 rounded-lg backdrop-blur-md border border-purple-500/40 group hover:border-purple-500/70 transition-all duration-500 bg-gradient-to-br from-purple-900/20 to-cyan-900/20"
+                      className="p-6 rounded-lg bg-black border border-purple-500/40 group hover:border-purple-500/70 transition-all duration-500 bg-gradient-to-br from-purple-900/20 to-cyan-900/20"
                       whileHover={{ 
                         boxShadow: "0 0 20px rgba(168, 85, 247, 0.4)",
                         scale: 1.02
@@ -100,3 +100,5 @@ const TimeLine = () => {
 };
 
 export default TimeLine;
+
+
