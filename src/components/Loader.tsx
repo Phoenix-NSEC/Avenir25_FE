@@ -1,10 +1,8 @@
-"use client"
-
 import { useEffect, useState, useRef } from "react"
 import { motion } from "framer-motion"
 import { Sparkles } from "lucide-react"
 
-export default function Loader() {
+export default function Loader({ logoPath = "/Event assets/logo.png" }) {
   const [progress, setProgress] = useState(0)
   const intervalRef = useRef(null)
   const [loadingComplete, setLoadingComplete] = useState(false)
@@ -30,7 +28,7 @@ export default function Loader() {
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-black"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-black"
       initial={{ opacity: 1 }}
       exit={{
         opacity: 0,
@@ -40,7 +38,7 @@ export default function Loader() {
         },
       }}
     >
-      {/* 3D Magic circle - Improved and centered */}
+      {/* 3D Magic circle - Centered */}
       <div className="absolute inset-0 flex items-center justify-center">
         <motion.div
           className="relative flex items-center justify-center"
@@ -61,12 +59,13 @@ export default function Loader() {
             ease: "easeInOut",
           }}
         >
+          {/* Responsive sizing for the rings - using viewport units */}
           {/* 3D Outer ring */}
           <motion.div
             className="absolute rounded-full border-4 border-purple-500"
             style={{ 
-              width: "300px", 
-              height: "300px",
+              width: "min(300px, 80vw)", 
+              height: "min(300px, 80vw)",
               boxShadow: "0 0 20px rgba(147, 51, 234, 0.5)",
               transformStyle: "preserve-3d"
             }}
@@ -88,8 +87,8 @@ export default function Loader() {
           <motion.div
             className="absolute rounded-full border-2 border-cyan-400"
             style={{ 
-              width: "250px", 
-              height: "250px",
+              width: "min(250px, 70vw)", 
+              height: "min(250px, 70vw)",
               boxShadow: "0 0 15px rgba(34, 211, 238, 0.5)",
               transformStyle: "preserve-3d"
             }}
@@ -111,8 +110,8 @@ export default function Loader() {
           <motion.div
             className="absolute rounded-full border-2 border-pink-500"
             style={{ 
-              width: "200px", 
-              height: "200px",
+              width: "min(200px, 60vw)", 
+              height: "min(200px, 60vw)",
               boxShadow: "0 0 15px rgba(236, 72, 153, 0.5)",
               transformStyle: "preserve-3d"
             }}
@@ -137,7 +136,7 @@ export default function Loader() {
                 style={{
                   top: "50%",
                   left: "50%",
-                  transform: `rotate(${i * 30}deg) translateX(100px) rotate(-${i * 30}deg)`,
+                  transform: `rotate(${i * 30}deg) translateX(min(100px, 30vw)) rotate(-${i * 30}deg)`,
                 }}
                 animate={{ 
                   opacity: [0.5, 1, 0.5],
@@ -157,8 +156,8 @@ export default function Loader() {
           <motion.div
             className="absolute rounded-full bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-cyan-400/20 blur-xl"
             style={{ 
-              width: "280px", 
-              height: "280px",
+              width: "min(280px, 75vw)", 
+              height: "min(280px, 75vw)",
               filter: "blur(15px)"
             }}
             animate={{ 
@@ -177,8 +176,8 @@ export default function Loader() {
           <motion.div
             className="absolute rounded-full bg-gradient-radial from-white via-pink-500 to-purple-700"
             style={{ 
-              width: "160px", 
-              height: "160px",
+              width: "min(160px, 45vw)", 
+              height: "min(160px, 45vw)",
               filter: "blur(5px)"
             }}
             animate={{ 
@@ -197,12 +196,9 @@ export default function Loader() {
           <motion.div
             className="absolute rounded-full bg-white"
             style={{ 
-              width: "80px", 
-              height: "80px",
-              filter: "blur(10px)",
-              transform: "translate(-50%, -50%)",
-              left: "50%",
-              top: "50%"
+              width: "min(80px, 25vw)", 
+              height: "min(80px, 25vw)",
+              filter: "blur(10px)"
             }}
             animate={{ 
               scale: [0.7, 1.2, 0.7],
@@ -220,35 +216,29 @@ export default function Loader() {
             }}
           />
           
-          {/* Floating sparkles in the center */}
-          <div className="absolute" style={{ width: "100px", height: "100px" }}>
-            {Array.from({ length: 5 }).map((_, i) => (
-              <motion.div
-                key={`sparkle-${i}`}
-                className="absolute"
-                style={{
-                  width: "20px",
-                  height: "20px",
-                  left: "40px",
-                  top: "40px"
-                }}
-                animate={{ 
-                  x: Math.sin(i * 72) * 30,
-                  y: Math.cos(i * 72) * 30,
-                  opacity: [0.5, 1, 0.5],
-                  scale: [0.8, 1.2, 0.8]
-                }}
-                transition={{ 
-                  x: { duration: 3, repeat: Infinity, ease: "easeInOut", repeatType: "reverse", delay: i * 0.2 },
-                  y: { duration: 4, repeat: Infinity, ease: "easeInOut", repeatType: "reverse", delay: i * 0.2 },
-                  opacity: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 },
-                  scale: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }
-                }}
-              >
-                <Sparkles className="h-5 w-5 text-white" />
-              </motion.div>
-            ))}
-          </div>
+          {/* Fixed logo positioning - perfectly centered */}
+          <motion.div
+            className="absolute left-1/2 top-1/2 z-10 flex h-auto w-auto -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+            style={{
+              width: "min(120px, 35vw)",
+              height: "min(120px, 35vw)"
+            }}
+            animate={{
+              rotateY: [0, 360],
+            }}
+            transition={{
+              rotateY: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+            }}
+          >
+            <img 
+              src={logoPath} 
+              alt="Logo" 
+              className="h-full w-full object-contain drop-shadow-lg"
+              style={{
+                filter: "drop-shadow(0 0 8px rgba(255, 255, 255, 0.8))"
+              }}
+            />
+          </motion.div>
         </motion.div>
       </div>
 
@@ -266,8 +256,8 @@ export default function Loader() {
               key={`symbol-${i}`}
               className="absolute"
               style={{
-                width: "40px",
-                height: "40px",
+                width: "min(40px, 10vw)",
+                height: "min(40px, 10vw)",
                 left: `${x}%`,
                 top: `${y}%`,
                 transform: "translate(-50%, -50%)"
@@ -303,7 +293,7 @@ export default function Loader() {
         })}
       </div>
 
-      {/* Enhanced magic particles with better distribution */}
+      {/* Enhanced magic particles with better distribution - KEEPING CLEAR OF CENTER */}
       <div className="absolute inset-0 pointer-events-none">
         {Array.from({ length: 50 }).map((_, i) => {
           // Create more intentional particle positioning
@@ -312,7 +302,9 @@ export default function Loader() {
           const baseAngle = sector * sectorSize
           const angle = baseAngle + Math.random() * sectorSize
           const rad = angle * Math.PI / 180
-          const distance = 30 + Math.random() * 40 // % from center
+          
+          // Particles now start further from center (min 45% distance)
+          const distance = 45 + Math.random() * 25 // % from center (45-70%)
           
           return (
             <motion.div
@@ -323,21 +315,15 @@ export default function Loader() {
                 height: Math.random() * 8 + 2,
                 left: `50%`,
                 top: `50%`,
-                translateX: "-50%",
-                translateY: "-50%",
-                opacity: 0,
-                background: `linear-gradient(to right, ${
-                  ["#9333EA", "#EC4899", "#22D3EE"][i % 3]
-                }, ${
-                  ["#EC4899", "#22D3EE", "#9333EA"][(i + 1) % 3]
-                })`,
+                backgroundColor: ["#9333EA", "#EC4899", "#22D3EE"][i % 3],
                 boxShadow: `0 0 5px ${["#9333EA", "#EC4899", "#22D3EE"][i % 3]}`
               }}
               animate={{ 
                 opacity: [0, 0.8, 0],
                 scale: [0, 1, 0],
-                x: Math.cos(rad) * distance * (window.innerWidth / 100),
-                y: Math.sin(rad) * distance * (window.innerHeight / 100),
+                x: Math.cos(rad) * distance * (window.innerWidth < 600 ? 2 : 4),
+                y: Math.sin(rad) * distance * (window.innerHeight < 600 ? 2 : 4),
+                transform: "translate(-50%, -50%)"
               }}
               transition={{ 
                 duration: Math.random() * 2 + 2,
@@ -359,60 +345,13 @@ export default function Loader() {
         />
       )}
 
-      <div className="relative w-full max-w-md px-6 z-10">
-        {/* Enhanced logo with 3D effects */}
-        <motion.div
-          className="mb-8 flex justify-center"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="relative">
-            <motion.div
-              animate={{
-                rotate: 360,
-                scale: [1, 1.1, 1],
-              }}
-              transition={{
-                rotate: { duration: 10, repeat: Infinity, ease: "linear" },
-                scale: { duration: 2, repeat: Infinity, ease: "easeInOut" },
-              }}
-              className="absolute inset-0 rounded-full bg-gradient-radial from-purple-500/50 to-cyan-500/30 blur-xl"
-            />
-            <div className="relative flex items-center justify-center h-32 w-32 rounded-full bg-black/50 backdrop-blur-sm border border-white/10 shadow-lg shadow-purple-500/30">
-              <motion.div
-                animate={{
-                  rotateY: [0, 360],
-                }}
-                transition={{
-                  rotateY: { duration: 6, repeat: Infinity, ease: "easeInOut" },
-                }}
-                style={{ transformStyle: "preserve-3d" }}
-              >
-                <Sparkles className="h-16 w-16 text-purple-500 drop-shadow-lg shadow-purple-500" />
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Enhanced text with better typography */}
-        <motion.div
-          className="text-center mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-        >
-          <h1 className="text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-400 mb-2 drop-shadow-md">
-            AVENIR 2025
-          </h1>
-          <p className="text-gray-300 text-lg tracking-wider">Where Magic Meets Technology</p>
-        </motion.div>
-
+      {/* Progress container positioned at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 w-full px-4 sm:px-6 lg:px-8 pb-8 z-10">
         {/* Enhanced progress bar with glowing effect */}
-        <div className="relative h-3 bg-gray-800/50 rounded-full overflow-hidden mb-4 backdrop-blur-sm shadow-inner">
+        <div className="relative h-3 bg-gray-800/80 rounded-full overflow-hidden mb-4 shadow-inner mx-auto max-w-lg">
           <motion.div
-            className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-400"
-            style={{ boxShadow: "0 0 10px rgba(236, 72, 153, 0.7)" }}
+            className="absolute top-0 left-0 h-full bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500"
+            style={{ boxShadow: "0 0 10px rgba(245, 158, 11, 0.7)" }}
             initial={{ width: "0%" }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.3 }}
@@ -427,7 +366,7 @@ export default function Loader() {
         </div>
 
         <motion.p
-          className="text-center text-sm text-gray-400 font-medium tracking-wide"
+          className="text-center text-gray-300 font-medium tracking-wide"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}

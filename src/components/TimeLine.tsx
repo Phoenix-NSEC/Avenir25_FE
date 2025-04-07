@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
-import { timelineItems} from "../constants/timeline-data";
+import { timelineItems } from "../constants/timeline-data";
 
 const TimeLine = () => {
-  
   return (
     <section className="py-16 px-4 sm:px-6">
       <div className="container mx-auto">
@@ -24,8 +23,8 @@ const TimeLine = () => {
         </motion.div>
 
         <div className="relative">
-          {/* Center line with improved visibility */}
-          <div className="absolute lg:left-1/2  top-0 bottom-0 transform -translate-x-1/2 w-1 bg-gradient-to-b from-purple-600 via-cyan-500 to-purple-600 z-0" />
+          {/* Center line for larger screens, side line for mobile */}
+          <div className="absolute left-4 lg:left-1/2 top-0 bottom-0 transform lg:-translate-x-1/2 w-1 bg-gradient-to-b from-purple-600 via-cyan-500 to-purple-600 z-0" />
 
           <div className="grid grid-cols-1 gap-4 relative z-10">
             {timelineItems.map((item, index) => (
@@ -42,8 +41,8 @@ const TimeLine = () => {
                 viewport={{ once: true, amount: 0.3 }}
                 className="relative"
               >
-                {/* Timeline dot with higher contrast */}
-                <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 items-center justify-center">
+                {/* Timeline dot with positioning for both mobile and desktop */}
+                <div className="absolute left-4 lg:left-1/2 top-10 transform lg:-translate-x-1/2 w-6 h-6 flex items-center justify-center">
                   <motion.div 
                     className="relative flex items-center justify-center"
                     whileInView={{ scale: [0.8, 1.2, 1] }}
@@ -57,9 +56,19 @@ const TimeLine = () => {
                   </motion.div>
                 </div>
 
-                {/* Content with improved contrast and transparency */}
-                <div className={`flex ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}>
-                  <div className={`w-full md:w-1/2 ${index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"}`}>
+                {/* Content with responsive positioning */}
+                <div className="flex flex-col lg:flex-row">
+                  {/* Left spacer for even items on desktop */}
+                  {index % 2 !== 0 && (
+                    <div className="hidden lg:block w-1/2" />
+                  )}
+                  
+                  {/* Content container */}
+                  <div className={`w-full lg:w-1/2 pl-12 lg:pl-0 ${
+                    index % 2 === 0 
+                      ? "lg:pr-12 lg:text-right" 
+                      : "lg:pl-12 lg:text-left"
+                  }`}>
                     <motion.div 
                       className="p-6 rounded-lg bg-black border border-purple-500/40 group hover:border-purple-500/70 transition-all duration-500 bg-gradient-to-br from-purple-900/20 to-cyan-900/20"
                       whileHover={{ 
@@ -74,8 +83,10 @@ const TimeLine = () => {
                     </motion.div>
                   </div>
                   
-                  {/* Spacer for opposite side */}
-                  <div className="hidden md:block w-1/2" />
+                  {/* Right spacer for odd items on desktop */}
+                  {index % 2 === 0 && (
+                    <div className="hidden lg:block w-1/2" />
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -100,5 +111,3 @@ const TimeLine = () => {
 };
 
 export default TimeLine;
-
-
