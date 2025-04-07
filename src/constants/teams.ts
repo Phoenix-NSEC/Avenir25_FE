@@ -85,19 +85,19 @@ export const wingData = {
 
         gallery: [
             {
-                url: cybernix_blindcoding,
+                // url: cybernix_blindcoding,
                 caption: "blindcoding"
             },
             {
-                url: cybernix_encoding,
+                // url: cybernix_encoding,
                 caption: "encoding"
             },
             {
-                url: cybernix_stacktraccer,
+                // url: cybernix_stacktraccer,
                 caption: "stacktraccer"
             },
             {
-                url: cybernix_webyaward,
+                // url: cybernix_webyaward,
                 caption: "webyaward"
             },
         ]
@@ -156,15 +156,15 @@ export const wingData = {
 
         gallery: [
             {
-                url: eloquence_despute,
+                // url: eloquence_despute,
                 caption: "despute"
             },
             {
-                url: eloquence_openmic,
+                // url: eloquence_openmic,
                 caption: "openmic"
             },
             {
-                url: eloquence_pictopress,
+                // url: eloquence_pictopress,
                 caption: "pictopress"
             },
         ]
@@ -223,23 +223,23 @@ export const wingData = {
 
         gallery: [
             {
-                url: robonix_linetraccer,
+                // url: robonix_linetraccer,
                 caption: "linetraccer"
             },
             {
-                url: robonix_mazesolver,
+                // url: robonix_mazesolver,
                 caption: "mazesolver"
             },
             {
-                url: robonix_robbocarrom,
+                // url: robonix_robbocarrom,
                 caption: "robbocarrom"
             },
             {
-                url: robonix_robbosoccer,
+                // url: robonix_robbosoccer,
                 caption: "robbosoccer"
             },
             {
-                url: robonix_terrarover,
+                // url: robonix_terrarover,
                 caption: "terrarover"
             },
         ]
@@ -309,19 +309,19 @@ export const wingData = {
 
         gallery: [
             {
-                url: nirmaan_bridgeolare,
+                // url: nirmaan_bridgeolare,
                 caption: "bridgeolare"
             },
             {
-                url: nirmaan_bridgeomania,
+                // url: nirmaan_bridgeomania,
                 caption: "bridgeomania"
             },
             {
-                url: nirmaan_cityplanning,
+                // url: nirmaan_cityplanning,
                 caption: "cityplanning"
             },
             {
-                url: nirmaan_servoolare,
+                // url: nirmaan_servoolare,
                 caption: "servoolare"
             },
         ]
@@ -380,11 +380,11 @@ export const wingData = {
 
         gallery: [
             {
-                url: illustro_bioscope,
+                // url: illustro_bioscope,
                 caption: "bioscope"
             },
             {
-                url: illustro_specrum,
+                // url: illustro_specrum,
                 caption: "specrum"
             },
         ]
