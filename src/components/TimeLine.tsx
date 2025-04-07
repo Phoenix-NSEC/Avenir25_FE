@@ -1,39 +1,8 @@
 import { motion } from "framer-motion";
+import { timelineItems} from "../constants/timeline-data";
 
 const TimeLine = () => {
-  const timelineItems = [
-    {
-      year: "2015",
-      title: "Humble Beginnings",
-      description: "Avenir began as a small departmental event with just 200 participants.",
-      icon: "🌱" 
-    },
-    {
-      year: "2018",
-      title: "Going College-Wide",
-      description: "Expanded to include all departments with over 1000 participants.",
-      icon: "🏫"
-    },
-    {
-      year: "2020",
-      title: "Virtual Innovation",
-      description: "Successfully pivoted to a fully virtual format during the pandemic.",
-      icon: "💻"
-    },
-    {
-      year: "2023",
-      title: "National Recognition",
-      description: "Grew to become one of Eastern India's premier technical festivals.",
-      icon: "🏆"
-    },
-    {
-      year: "2025",
-      title: "The Magical Edition",
-      description: "Celebrating our 10th edition with the biggest and most magical Avenir yet.",
-      icon: "✨"
-    },
-  ];
-
+  
   return (
     <section className="py-16 px-4 sm:px-6">
       <div className="container mx-auto">
@@ -58,7 +27,7 @@ const TimeLine = () => {
           {/* Center line with improved visibility */}
           <div className="absolute left-1/2 top-0 bottom-0 transform -translate-x-1/2 w-1 bg-gradient-to-b from-purple-600 via-cyan-500 to-purple-600 z-0" />
 
-          <div className="grid grid-cols-1 gap-20 relative z-10">
+          <div className="grid grid-cols-1 gap-4 relative z-10">
             {timelineItems.map((item, index) => (
               <motion.div
                 key={item.year}
