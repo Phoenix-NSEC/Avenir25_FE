@@ -142,12 +142,12 @@ const Hero = () => {
           <div className="p-5 sm:p-6 md:p-8 rounded-3xl  transform transition-all duration-500 hover:shadow-purple-600/20 hover:border-purple-400/40 bg-transparent">
             <div className="mb-6 md:mb-8">
               <div className="inline-block px-3 py-1 md:px-4 md:py-1.5 mb-4 text-xs font-bold tracking-wider text-purple-200 bg-purple-900/70 rounded-full shadow-lg shadow-purple-900/30 transform hover:scale-105 transition-all duration-300">
-                PHOENIX TECH CLUB PRESENTS
+                PHOENIX PRESENTS
               </div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 leading-tight">
                 AVENIR'25
               </h1>
-              <div className="h-1 w-16 md:w-24 lg:w-32 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full mb-6"></div>
+              {/* <div className="h-1 w-16 md:w-24 lg:w-32 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full mb-6"></div> */}
               <p className="text-base md:text-lg lg:text-xl text-purple-200 mb-6 leading-relaxed">
                 The annual Tech Fest of NSEC (Netaji Subhash Engineering College) organized by Phoenix. Join us for 24
                 hours of coding, creativity, and collaboration.
