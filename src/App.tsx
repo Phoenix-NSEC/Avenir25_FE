@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import About from "./components/About";
-import ContactUs from "./components/ContactUs";
+import ContactUs from "./components/Footer";
 import Events from "./components/Events";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";

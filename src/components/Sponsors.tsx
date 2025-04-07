@@ -42,7 +42,7 @@ const Sponsors = () => {
   };
 
   // Beautiful creative heading with magical elements
-  const EnchantedHeading = ({ children, delay = 0.3 }) => (
+  const EnchantedHeading = ({ children, delay = 0.3 }: any) => (
     <div className="relative mb-20 mt-8">
       {/* Decorative elements */}
       <div className="absolute left-1/4 -top-6 w-32 h-1 bg-gradient-to-r from-purple-600/0 via-purple-600 to-purple-600/0"></div>
@@ -299,3 +299,6 @@ const Sponsors = () => {
 };
 
 export default Sponsors;
+
+
+
