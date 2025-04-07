@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Zap } from "lucide-react"
@@ -76,13 +74,13 @@ export default function Navbar() {
   }
 
   return (
-    <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[98%] sm:w-[95%] md:w-[92%] max-w-7xl">
+    <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[98%] sm:w-[95%] md:w-[92%]">
       {/* Animated border wrapper */}
-      <div className="relative p-[2px] rounded-full">
+      <div className="relative p-[2px] rounded-3xl">
         {/* Animated border effect - only this part has animation */}
-        <div className="absolute inset-0 rounded-full overflow-hidden">
+        <div className="absolute inset-0 rounded-3xl overflow-hidden">
           <motion.div
-            className="absolute inset-0 rounded-full"
+            className="absolute inset-0 rounded-3xl"
             style={{
               background:
                 "linear-gradient(90deg, rgba(168,85,247,0.7), rgba(56,189,248,0.7), rgba(217,70,239,0.7), rgba(168,85,247,0.7))",
@@ -105,7 +103,7 @@ export default function Navbar() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="relative rounded-full w-full transition-all duration-500 py-2 sm:py-3 md:py-4 px-4 sm:px-5 md:px-6 bg-black bg-opacity-40"
+          className="relative rounded-3xl w-full transition-all duration-500 py-2 sm:py-3 md:py-4 px-4 sm:px-5 md:px-6 bg-black bg-opacity-40"
         >
           <div className="relative flex justify-between items-center">
             <a href="/" className="flex items-center gap-1 md:gap-2 group">
@@ -128,54 +126,50 @@ export default function Navbar() {
                   </div>
                 </div>
               </motion.div>
-              <motion.span
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                className="text-lg sm:text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-cyan-400 group-hover:from-purple-400 group-hover:to-cyan-300 transition-all duration-300"
-              >
-                Avenir
-              </motion.span>
             </a>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-4 lg:gap-8">
-              {navLinks.map((link, index) => (
-                <motion.div
-                  key={link.name}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * index, duration: 0.5 }}
-                  className="relative group"
-                >
-                  <a
-                    href={link.href}
-                    className={`relative text-sm lg:text-base transition-all duration-300 ${
-                      activeLink === link.href.substring(1)
-                        ? "text-purple-400 font-medium"
-                        : "text-gray-300 hover:text-white"
-                    }`}
+            <div className="hidden md:flex items-center w-full">
+              {/* Centered nav links */}
+              <div className="flex justify-center gap-4 lg:gap-8 flex-1">
+                {navLinks.map((link, index) => (
+                  <motion.div
+                    key={link.name}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * index, duration: 0.5 }}
+                    className="relative group"
                   >
-                    {link.name}
-                    {activeLink === link.href.substring(1) ? (
-                      <motion.div
-                        layoutId="activeIndicator"
-                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-cyan-400"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.3 }}
-                      />
-                    ) : null}
-                  </a>
-                </motion.div>
-              ))}
+                    <a
+                      href={link.href}
+                      className={`relative text-sm lg:text-base transition-all duration-300 ${activeLink === link.href.substring(1)
+                          ? "text-purple-400 font-medium"
+                          : "text-gray-300 hover:text-white"
+                        }`}
+                    >
+                      {link.name}
+                      {activeLink === link.href.substring(1) && (
+                        <motion.div
+                          layoutId="activeIndicator"
+                          className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-cyan-400"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ duration: 0.3 }}
+                        />
+                      )}
+                    </a>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Register Now button aligned right */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.6, duration: 0.5 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="relative group"
+                className="ml-auto"
               >
                 <button className="relative overflow-hidden inline-flex items-center justify-center rounded-full font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 md:h-9 lg:h-10 px-4 md:px-5 text-xs md:text-sm bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white border-none shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transition-all duration-300">
                   <span className="relative z-10 flex items-center gap-1.5">
@@ -185,6 +179,7 @@ export default function Navbar() {
                 </button>
               </motion.div>
             </div>
+
 
             {/* Mobile Navigation Toggle */}
             <div className="md:hidden">
@@ -266,11 +261,10 @@ export default function Navbar() {
                         >
                           <a
                             href={link.href}
-                            className={`block py-3 px-4 sm:px-5 rounded-xl transition-all duration-300 text-sm sm:text-base ${
-                              activeLink === link.href.substring(1)
+                            className={`block py-3 px-4 sm:px-5 rounded-xl transition-all duration-300 text-sm sm:text-base ${activeLink === link.href.substring(1)
                                 ? "text-purple-400"
                                 : "text-gray-300 hover:text-white"
-                            }`}
+                              }`}
                             onClick={() => setIsOpen(false)}
                           >
                             <div className="flex items-center">

@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react"
 import { motion } from "framer-motion"
-import { Sparkles } from "lucide-react"
 
 export default function Loader({ logoPath = "/Event assets/logo.png" }) {
   const [progress, setProgress] = useState(0)
@@ -350,7 +349,8 @@ export default function Loader({ logoPath = "/Event assets/logo.png" }) {
         {/* Enhanced progress bar with glowing effect */}
         <div className="relative h-3 bg-gray-800/80 rounded-full overflow-hidden mb-4 shadow-inner mx-auto max-w-lg">
           <motion.div
-            className="absolute top-0 left-0 h-full bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500"
+            className="absolute top-0 left-0 h-full bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-400"
+
             style={{ boxShadow: "0 0 10px rgba(245, 158, 11, 0.7)" }}
             initial={{ width: "0%" }}
             animate={{ width: `${progress}%` }}
