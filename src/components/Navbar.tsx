@@ -61,10 +61,12 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Home", href: "#home" },
-    { name: "Events", href: "#events" },
+    { name: "Events", href: "/events" },
     { name: "Timeline", href: "#timeline" },
     { name: "About", href: "#about" },
     { name: "Sponsors", href: "#sponsors" },
+    { name: "Team", href: "/team" },
+    { name: "FAQ", href: "/faq" },
     // { name: "Contact", href: "#contact" },
   ]
 
@@ -171,10 +173,10 @@ export default function Navbar() {
                 whileTap={{ scale: 0.95 }}
                 className="ml-auto"
               >
-                <button className="relative overflow-hidden inline-flex items-center justify-center rounded-full font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 md:h-9 lg:h-10 px-4 md:px-5 text-xs md:text-sm bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white border-none shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transition-all duration-300">
+                <button className="relative overflow-hidden inline-flex items-center justify-center rounded-md font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 md:h-9 lg:h-10 px-4 md:px-5 text-xs md:text-sm bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white border-none shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transition-all duration-300">
                   <span className="relative z-10 flex items-center gap-1.5">
                     Register Now
-                    <Zap className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                   
                   </span>
                 </button>
               </motion.div>
