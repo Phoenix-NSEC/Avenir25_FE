@@ -139,15 +139,46 @@ const Hero = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center max-w-7xl mx-auto">
           {/* Left Side - Text Content - COMPLETELY TRANSPARENT */}
-          <div className="p-5 sm:p-6 md:p-8 rounded-3xl  transform transition-all duration-500 hover:shadow-purple-600/20 hover:border-purple-400/40 bg-transparent">
+          <div className="p-5 sm:p-6 md:p-8 rounded-3xl transform transition-all duration-500 hover:shadow-purple-600/20 hover:border-purple-400/40 bg-transparent">
             <div className="mb-6 md:mb-8">
               <div className="inline-block px-3 py-1 md:px-4 md:py-1.5 mb-4 text-xs font-bold tracking-wider text-purple-200 bg-purple-900/70 rounded-full shadow-lg shadow-purple-900/30 transform hover:scale-105 transition-all duration-300">
                 PHOENIX PRESENTS
               </div>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 leading-tight">
-                AVENIR'25
-              </h1>
-              {/* <div className="h-1 w-16 md:w-24 lg:w-32 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full mb-6"></div> */}
+              
+              {/* 3D Text Effect for AVENIR'25 */}
+              <div className="relative perspective-1000 my-6">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight avenir-3d-text">
+                  <span className="avenir-letter">A</span>
+                  <span className="avenir-letter">V</span>
+                  <span className="avenir-letter">E</span>
+                  <span className="avenir-letter">N</span>
+                  <span className="avenir-letter">I</span>
+                  <span className="avenir-letter">R</span>
+                  <span className="avenir-letter">'</span>
+                  <span className="avenir-letter">2</span>
+                  <span className="avenir-letter">5</span>
+                </h1>
+                
+                {/* Floating particles behind the 3D text */}
+                <div className="absolute inset-0 z-[-1] overflow-hidden">
+                  {[...Array(20)].map((_, i) => (
+                    <div 
+                      key={i}
+                      className="absolute rounded-full floating-particle"
+                      style={{
+                        width: `${2 + Math.random() * 4}px`,
+                        height: `${2 + Math.random() * 4}px`,
+                        backgroundColor: `rgba(${168 + Math.random() * 30}, ${85 + Math.random() * 40}, ${247 + Math.random() * 30}, ${0.4 + Math.random() * 0.5})`,
+                        top: `${Math.random() * 100}%`,
+                        left: `${Math.random() * 100}%`,
+                        animationDuration: `${5 + Math.random() * 10}s`,
+                        animationDelay: `${Math.random() * 5}s`
+                      }}
+                    ></div>
+                  ))}
+                </div>
+              </div>
+              
               <p className="text-base md:text-lg lg:text-xl text-purple-200 mb-6 leading-relaxed">
                 The annual Tech Fest of NSEC (Netaji Subhash Engineering College) organized by Phoenix. Join us for 24
                 hours of coding, creativity, and collaboration.
@@ -235,8 +266,6 @@ const Hero = () => {
                   </div>
                 ))}
               </div>
-
-              {/* <div className="mt-4 text-xs md:text-sm text-purple-400/80 text-center">Event date: {eventDate}</div> */}
             </div>
           </div>
 
@@ -425,10 +454,97 @@ const Hero = () => {
             text-shadow: 0 0 15px rgba(168, 85, 247, 0.8);
           }
         }
+        
+        /* 3D Text Effect Styles */
+        .perspective-1000 {
+          perspective: 1000px;
+        }
+        
+        .avenir-3d-text {
+          display: flex;
+          justify-content: flex-start;
+          transform-style: preserve-3d;
+          position: relative;
+          color: transparent;
+        }
+        
+        .avenir-letter {
+          display: inline-block;
+          background: linear-gradient(to bottom, #c084fc, #8b5cf6);
+          background-clip: text;
+          -webkit-background-clip: text;
+          color: transparent;
+          text-shadow: 
+            0 1px 0 #a855f7,
+            0 2px 0 #9333ea,
+            0 3px 0 #7e22ce,
+            0 4px 0 #6b21a8,
+            0 5px 0 #581c87,
+            0 6px 0 #4c1d95,
+            0 7px 0 #4338ca,
+            0 8px 10px rgba(90, 40, 140, 0.8);
+          transform-style: preserve-3d;
+          position: relative;
+          animation: letter-hover 3s ease-in-out infinite alternate;
+          animation-delay: calc(var(--index, 0) * 0.1s);
+        }
+        
+        .avenir-letter:nth-child(1) { --index: 1; }
+        .avenir-letter:nth-child(2) { --index: 2; }
+        .avenir-letter:nth-child(3) { --index: 3; }
+        .avenir-letter:nth-child(4) { --index: 4; }
+        .avenir-letter:nth-child(5) { --index: 5; }
+        .avenir-letter:nth-child(6) { --index: 6; }
+        .avenir-letter:nth-child(7) { --index: 7; }
+        .avenir-letter:nth-child(8) { --index: 8; }
+        .avenir-letter:nth-child(9) { --index: 9; }
+        
+        @keyframes letter-hover {
+          0%, 100% {
+            transform: translateZ(0px) translateY(0px) rotateX(0deg);
+            text-shadow: 
+              0 1px 0 #a855f7,
+              0 2px 0 #9333ea,
+              0 3px 0 #7e22ce,
+              0 4px 0 #6b21a8,
+              0 5px 0 #581c87,
+              0 10px 10px rgba(90, 40, 140, 0.8);
+          }
+          50% {
+            transform: translateZ(20px) translateY(-5px) rotateX(10deg);
+            text-shadow: 
+              0 1px 0 #a855f7,
+              0 2px 0 #9333ea,
+              0 3px 0 #7e22ce,
+              0 4px 0 #6b21a8,
+              0 5px 0 #581c87,
+              0 20px 20px rgba(90, 40, 140, 0.8);
+          }
+        }
+        
+        /* Floating particles animation */
+        @keyframes float-particle {
+          0%, 100% {
+            transform: translateY(0) translateX(0);
+            opacity: 0.4;
+          }
+          25% {
+            transform: translateY(-10px) translateX(5px);
+            opacity: 0.7;
+          }
+          75% {
+            transform: translateY(10px) translateX(-5px);
+            opacity: 0.7;
+          }
+        }
+        
+        .floating-particle {
+          animation: float-particle 5s ease-in-out infinite;
+          filter: blur(1px);
+        }
       `}</style>
     </div>
   )
 }
 
 export default Hero
-

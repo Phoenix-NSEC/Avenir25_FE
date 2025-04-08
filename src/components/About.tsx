@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Award, Calendar, Trophy, Users } from "lucide-react";
+import { EnchantedHeading } from "./EnchantedHeading";
 
 export default function About() {
   const ref = useRef(null);
@@ -21,9 +22,7 @@ export default function About() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-cyan-400 mb-4">
-            About Avenir
-          </h2>
+          <EnchantedHeading>About Avenir</EnchantedHeading>
           <p className="text-lg text-purple-200 max-w-2xl mx-auto">
             Discover the magic behind NSEC's premier technical festival and the team that brings it to life.
           </p>

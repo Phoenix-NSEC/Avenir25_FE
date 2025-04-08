@@ -11,21 +11,31 @@ import Loader from "./components/Loader";
 import AnimatedBackground from "./components/AnimatedBackground";
 
 const App = () => {
-
-  const [loading, setLoading] = useState(true)
-  const [mounted, setMounted] = useState(false)
+  const [loading, setLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
+  
   useEffect(() => {
-    setMounted(true)
-
-    // Simulate loading time for the preloader
-    const timer = setTimeout(() => {
-      setLoading(false)
-    }, 3500)
-
-    return () => clearTimeout(timer)
-  }, [])
-
-  if(!mounted) return null
+    setMounted(true);
+    
+    // Check if user has visited the site in this session
+    const hasVisitedInSession = sessionStorage.getItem('hasVisitedInSession');
+    
+    if (!hasVisitedInSession) {
+      // First time visit in this session - show loader and set the flag
+      const timer = setTimeout(() => {
+        setLoading(false);
+        sessionStorage.setItem('hasVisitedInSession', 'true');
+      }, 3500);
+      
+      return () => clearTimeout(timer);
+    } else {
+      // Returning visitor in same session - don't show loader
+      setLoading(false);
+    }
+  }, []);
+  
+  if (!mounted) return null;
+  
   return (
     <div className="bg-gray-900 min-h-screen text-white">
       <AnimatePresence>{loading && <Loader />}</AnimatePresence>

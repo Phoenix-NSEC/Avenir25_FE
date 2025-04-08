@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { timelineItems } from "../constants/timeline-data";
+import { EnchantedHeading } from "./EnchantedHeading";
 
 const TimeLine = () => {
   return (
@@ -13,13 +14,7 @@ const TimeLine = () => {
           viewport={{ once: true, amount: 0.3 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold relative inline-block">
-            {/* Solid background text for better visibility */}
-            <span className="text-white font-bold">Our Journey Through Time</span>
-            
-            {/* Gradient underline for emphasis */}
-            <div className="h-1 w-full mt-2 bg-gradient-to-r from-purple-600 via-cyan-500 to-purple-600 rounded-full"></div>
-          </h2>
+          <EnchantedHeading>Magical Timeline</EnchantedHeading>
         </motion.div>
 
         <div className="relative">
