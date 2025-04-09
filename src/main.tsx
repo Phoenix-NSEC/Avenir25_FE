@@ -20,11 +20,8 @@ const router = createBrowserRouter([
   {
     path: "/events",
     element: <EventPage/> 
-  },
-  {
-    path: "/faq",
-    element: <FAQ/>
   }
+  
 ]);
 
 createRoot(document.getElementById('root')!).render(

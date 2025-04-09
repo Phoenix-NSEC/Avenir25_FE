@@ -106,7 +106,7 @@ const Sponsors = () => {
         }}
         className={`flex-shrink-0 ${isMobile ? 'w-full' : 'w-1/3'} px-4 py-6`}
       >
-        <div className="bg-gradient-to-br from-black/80 to-black/90 backdrop-blur-lg p-6 rounded-xl border border-purple-500/20 hover:border-purple-400/50 transition-all duration-300 flex items-center justify-center group h-40 relative overflow-hidden">
+        <div className="bg-gradient-to-br from-black/80 to-black/90 backdrop-blur-lg p-6 rounded-xl border border-purple-500/20 hover:border-purple-400/50 transition-all duration-300 flex items-center justify-center group h-72 relative overflow-hidden">
           {/* Magical border effect */}
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
             <div className={`absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r ${config.color}`}></div>

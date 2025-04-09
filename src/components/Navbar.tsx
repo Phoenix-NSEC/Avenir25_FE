@@ -66,7 +66,7 @@ export default function Navbar() {
     { name: "About", href: "#about" },
     { name: "Sponsors", href: "#sponsors" },
     { name: "Team", href: "/team" },
-    { name: "FAQ", href: "/faq" },
+    { name: "FAQ", href: "#faq" },
     // { name: "Contact", href: "#contact" },
   ]
 

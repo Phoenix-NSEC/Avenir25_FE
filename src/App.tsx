@@ -9,6 +9,8 @@ import TimeLine from "./components/TimeLine";
 import { useEffect, useState } from "react";
 import Loader from "./components/Loader";
 import AnimatedBackground from "./components/AnimatedBackground";
+import FAQ from "./components/FAQ";
+import Footer from "./components/Footer";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -56,9 +58,13 @@ const App = () => {
       <section id="sponsors">
         <Sponsers />
       </section>
-      <section id="contact">
-        <ContactUs />
+      <section id="faq">
+        <FAQ/>
       </section>
+      <section id="footer">
+        <Footer/>
+      </section>
+      
     </div>
   );
 };
