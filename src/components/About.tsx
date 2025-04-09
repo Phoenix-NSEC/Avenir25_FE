@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Award, Calendar, Trophy, Users } from "lucide-react";
 import { EnchantedHeading } from "./EnchantedHeading";
+import CountUpComponent from "./CountUp";
 
 export default function About() {
   const ref = useRef(null);
@@ -56,26 +57,30 @@ export default function About() {
             </p>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-              {[
-                { icon: <Users className="h-8 w-8 text-purple-400 mb-2" />, value: "5000+", label: "Participants" },
-                { icon: <Calendar className="h-8 w-8 text-cyan-400 mb-2" />, value: "10th", label: "Edition" },
-                { icon: <Trophy className="h-8 w-8 text-yellow-400 mb-2" />, value: "50+", label: "Events" },
-                { icon: <Award className="h-8 w-8 text-pink-400 mb-2" />, value: "₹10L+", label: "Prize Pool" },
-              ].map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="flex flex-col items-center p-4 bg-black/40 backdrop-blur-sm border border-purple-900/50 rounded-lg hover:border-purple-500/70 transition-colors duration-300"
-                >
-                  {stat.icon}
-                  <span className="text-2xl font-bold text-white">{stat.value}</span>
-                  <span className="text-sm text-purple-300/80">{stat.label}</span>
-                </motion.div>
-              ))}
-            </div>
+      {[
+        { icon: <Users className="h-8 w-8 text-purple-400 mb-2" />, value: "5000+", label: "Participants" },
+        { icon: <Calendar className="h-8 w-8 text-cyan-400 mb-2" />, value: "10th", label: "Edition" },
+        { icon: <Trophy className="h-8 w-8 text-yellow-400 mb-2" />, value: "50+", label: "Events" },
+        { icon: <Award className="h-8 w-8 text-pink-400 mb-2" />, value: "₹10L+", label: "Prize Pool" },
+      ].map((stat, index) => (
+        <motion.div
+          key={stat.label}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: index * 0.1 }}
+          viewport={{ once: true }}
+          className="flex flex-col items-center p-4 bg-black/40 backdrop-blur-sm border border-purple-900/50 rounded-lg hover:border-purple-500/70 transition-colors duration-300"
+        >
+          {stat.icon}
+          <span className="text-2xl font-bold text-white">
+            <CountUpComponent duration={2000} delay={index * 200}>
+              {stat.value}
+            </CountUpComponent>
+          </span>
+          <span className="text-sm text-purple-300/80">{stat.label}</span>
+        </motion.div>
+      ))}
+    </div>
           </motion.div>
 
           <motion.div
