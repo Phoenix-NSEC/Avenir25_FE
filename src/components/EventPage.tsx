@@ -204,6 +204,19 @@ export default function EventsPage() {
     fetchEvents()
   }, [])
 
+  // Add this useEffect to close event details modal on scroll
+useEffect(() => {
+  const handleScroll = () => {
+    if (selectedEvent) {
+      setSelectedEvent(null);
+    }
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, [selectedEvent]);
   // Filter events based on selected category
   const filteredEvents =
     activeCategory === "All" ? events : events.filter((event) => event.subCategory === activeCategory)
@@ -474,12 +487,12 @@ export default function EventsPage() {
   }
 
   return (
-    <section id="events" className="relative overflow-hidden">
+    <section id="events" className="relative overflow-hidden bg-black">
       <AnimatedBackground />
       <MagicalParticles />
 
       {/* Background gradients */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none">
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div
           className="absolute top-1/4 left-1/5 w-64 h-64 rounded-full bg-purple-700/30 blur-3xl animate-pulse"
           style={{ animationDuration: "8s" }}

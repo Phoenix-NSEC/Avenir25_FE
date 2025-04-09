@@ -24,7 +24,7 @@ export interface TeamMember {
           id: "core-1",
           name: "Aditya Sharma",
           designation: "Festival Director",
-          photo: "/api/placeholder/300/300",
+          photo: "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png",
           socials: {
             instagram: "https://instagram.com/aditya",
             linkedin: "https://linkedin.com/in/aditya-sharma",

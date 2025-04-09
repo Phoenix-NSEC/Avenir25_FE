@@ -17,7 +17,7 @@ export default function Navbar() {
     // Initial delay to match the loader duration in App.js (3500ms)
     const timer = setTimeout(() => {
       setIsVisible(true)
-    }, 3500)
+    }, 500)
 
     return () => clearTimeout(timer)
   }, [])
