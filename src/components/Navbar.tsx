@@ -2,11 +2,10 @@ import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Zap } from "lucide-react"
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
+export default function Navbar({ isVisible = false }) {
   const [scrolled, setScrolled] = useState(false)
   const [activeLink, setActiveLink] = useState("home")
-  const [isVisible, setIsVisible] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const navRef = useRef(null)
 
   // Logo path - replace with your actual logo path

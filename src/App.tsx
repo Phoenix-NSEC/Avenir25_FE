@@ -42,7 +42,7 @@ const App = () => {
     <div className="bg-gray-900 min-h-screen text-white">
       <AnimatePresence>{loading && <Loader />}</AnimatePresence>
       <AnimatedBackground />
-      <Navbar />
+      <Navbar isVisible={!loading}/>
       <section id="home">
         <Hero />
       </section>
