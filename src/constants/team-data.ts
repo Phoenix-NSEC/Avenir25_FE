@@ -36,7 +36,7 @@ export interface TeamMember {
           id: "core-2",
           name: "Junaid Tarafdar",
           designation: "General Secretary",
-          photo: "../../public/CoreProfilePics/IMG_5022 - Junaid Tarafdar.HEIC",
+          photo: "../../public/CoreProfilePics/Junaid Da.jpg",
           socials: {
             instagram: "https://www.instagram.com/_.tfzuu._/",
             // linkedin: "https://linkedin.com/in/priya-patel"
