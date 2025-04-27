@@ -55,9 +55,9 @@ const App = () => {
       <section id="about">
         <About />
       </section>
-      <section id="sponsors">
+      {/* <section id="sponsors">
         <Sponsers />
-      </section>
+      </section> */}
       <section id="faq">
         <FAQ/>
       </section>
