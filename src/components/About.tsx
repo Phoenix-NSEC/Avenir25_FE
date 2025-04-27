@@ -92,7 +92,7 @@ export default function About() {
             <div className="relative aspect-video overflow-hidden rounded-lg border-2 border-purple-900/50 group">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 to-cyan-900/30 z-10" />
               <img
-                src="https://scontent.fccu9-5.fna.fbcdn.net/v/t39.30808-6/479261063_637519225600041_3317135661973449709_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=127cfc&_nc_ohc=m5EzEiSENnMQ7kNvgHsHEJL&_nc_oc=Adnpz9j97IWD9vAE7a7Xm9QZIt3AgJEuyqcpIj0mvtSSX0R73N8VpdM5A7WZD3zWzHnVFxc1b6h-djskNTSWN4ID&_nc_zt=23&_nc_ht=scontent.fccu9-5.fna&_nc_gid=ZIoO0s31ajdHmm1EQIc_lA&oh=00_AYGsxETHFEUlmmEKt0PNP_MjOUP1R-NTeIjWOaUCsb2UYw&oe=67F44E2D"
+                src="/images/Avenir_about.jpeg"
                 alt="Avenir Tech Fest"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />

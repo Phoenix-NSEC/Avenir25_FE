@@ -231,7 +231,18 @@ export interface TeamMember {
             // linkedin: "https://linkedin.com/in/karthik-rajan",
             // github: "https://github.com/karthikrajan"
           }
-        }
+        },
+        {
+          id: "wing-8",
+          name: "Krishnava Ghosh",
+          designation: "Asst Tech Lead",
+          photo: "/api/placeholder/300/300",
+          socials: {
+            instagram: "https://www.instagram.com/krishnava_ghosh/",
+            linkedin: "https://www.linkedin.com/in/krishnavaghosh/",
+            github: "https://github.com/Gadzrux"
+          }
+        },
       ]
     },
     {
