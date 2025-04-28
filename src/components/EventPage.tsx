@@ -1,4 +1,4 @@
-import axios from "axios"
+
 import type React from "react"
 import { Link } from "react-router-dom"
 import { useState, useRef, useEffect } from "react"
@@ -118,9 +118,8 @@ const cardHoverVariants = {
 }
 
 // Default event image
-const DEFAULT_EVENT_IMAGE =
-  "https://scontent.fccu4-2.fna.fbcdn.net/v/t39.30808-6/434674059_428112519874047_4583851925527549874_n.png?stp=dst-png_s960x960&_nc_cat=111&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=E-pvyGoyiFkQ7kNvwGPG-gG&_nc_oc=Adm18Yfca_bvdvemKgFql-C2MdbAqivjEJVLajgJrBauFu58lfNJfy-Zx-9hzFXH7y10QrDnRrnnE1fW45L5Lvr-&_nc_zt=23&_nc_ht=scontent.fccu4-2.fna&_nc_gid=qXTEQ0OBpyNATl_pnwSNLw&oh=00_AfGwjekMka9iOTJe9V9SCBx5g0ICZEV6ljcgluPlIHvb1A&oe=67FACD59"
-const logo = "/Event assets/logo.png"
+const DEFAULT_EVENT_IMAGE = '/images/About_Img.png';
+const logo = "/images/logo.png"
 
 
 
@@ -696,7 +695,7 @@ useEffect(() => {
                       </motion.div>
                       <motion.div whileHover={{ scale: 1.08 }} transition={{ duration: 0.6 }} className="w-full h-full">
                         <img
-                          src={DEFAULT_EVENT_IMAGE || "/placeholder.svg"}
+                          src={DEFAULT_EVENT_IMAGE || "/images/About_Img.png"}
                           alt={event.eventName}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         />

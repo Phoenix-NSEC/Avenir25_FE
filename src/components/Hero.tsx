@@ -1,6 +1,4 @@
-"use client"
-
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState, useEffect } from "react";
 
 const Hero = () => {
   const [mounted, setMounted] = useState(false)
@@ -18,7 +16,7 @@ const Hero = () => {
   const sparklesRef = useRef<HTMLDivElement>(null)
 
   // Logo path
-  const logoPath = "/Event assets/logo.png"
+  const logoPath = "/images/logo.png";  
 
   // Mount effect and countdown timer
   useEffect(() => {
@@ -139,14 +137,14 @@ const Hero = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center max-w-7xl mx-auto">
           {/* Left Side - Text Content - COMPLETELY TRANSPARENT */}
-          <div className="p-5 sm:p-6 md:p-8 rounded-3xl transform transition-all duration-500 hover:shadow-purple-600/20 hover:border-purple-400/40 bg-transparent">
+          <div className="p-5 sm:p-6 md:p-8 rounded-3xl transform transition-all duration-500 hover:shadow-purple-600/20 hover:border-purple-400/40 ">
             <div className="mb-6 md:mb-8">
               <div className="inline-block px-3 py-1 md:px-4 md:py-1.5 mb-4 text-xs font-bold tracking-wider text-purple-200 bg-purple-900/70 rounded-full shadow-lg shadow-purple-900/30 transform hover:scale-105 transition-all duration-300">
                 PHOENIX PRESENTS
               </div>
               
               {/* 3D Text Effect for AVENIR'25 */}
-              <div className="relative perspective-1000 my-6">
+              <div className="relative perspective-1000 ">
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight avenir-3d-text">
                   <span className="avenir-letter">A</span>
                   <span className="avenir-letter">V</span>
@@ -154,9 +152,7 @@ const Hero = () => {
                   <span className="avenir-letter">N</span>
                   <span className="avenir-letter">I</span>
                   <span className="avenir-letter">R</span>
-                  <span className="avenir-letter">'</span>
-                  <span className="avenir-letter">2</span>
-                  <span className="avenir-letter">5</span>
+              
                 </h1>
                 
                 {/* Floating particles behind the 3D text */}
@@ -230,17 +226,17 @@ const Hero = () => {
                 {[
                   { value: countdown.days, label: "DAYS" },
                   { value: countdown.hours, label: "HOURS" },
-                  { value: countdown.minutes, label: "MINS" },
-                  { value: countdown.seconds, label: "SECS" },
+                  { value: countdown.minutes, label: "MIN" },
+                  { value: countdown.seconds, label: "SEC" },
                 ].map((unit, i) => (
                   <div key={i} className="text-center relative group">
                     {/* Magical glow behind counter */}
                     <div className="absolute inset-0 bg-purple-600/20 rounded-lg blur-lg group-hover:bg-purple-500/30 transition-all duration-300"></div>
 
                     {/* Animated border */}
-                    <div className="absolute inset-0 rounded-lg overflow-hidden">
+                    {/* <div className="absolute inset-0 rounded-lg overflow-hidden">
                       <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-500 to-indigo-600 animate-spin-slow opacity-70"></div>
-                    </div>
+                    </div> */}
 
                     {/* Counter content */}
                     <div className="relative text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white bg-purple-900/80 backdrop-blur rounded-lg p-2 md:p-3 border border-purple-500/40 shadow-lg overflow-hidden z-10">
@@ -383,7 +379,7 @@ const Hero = () => {
                   <img
                     src={logoPath || "/placeholder.svg"}
                     alt="Avenir Logo"
-                    className="object-contain w-full h-full"
+                    className="object-contain rounded-full w-full h-full"
                     style={{ filter: "drop-shadow(0 0 10px rgba(168, 85, 247, 0.5))" }}
                   />
                 </div>
@@ -394,7 +390,7 @@ const Hero = () => {
       </div>
 
       {/* CSS for custom animations */}
-      <style jsx>{`
+      <style>{`
         @keyframes spin-slow {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }

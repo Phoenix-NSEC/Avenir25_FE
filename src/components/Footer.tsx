@@ -4,8 +4,9 @@ import {
   FaFacebook,
   FaInstagram,
   FaLinkedin,
-  FaPhoenixSquadron,
+  
 } from "react-icons/fa";
+import { CgWebsite } from "react-icons/cg";
 
 export default function Footer() {
   return (
@@ -59,14 +60,14 @@ export default function Footer() {
                 className="text-white/70 hover:text-purple-400 transition-colors"
                 aria-label="Phoenix Squadron"
               >
-                <FaPhoenixSquadron size={20} />
+                <CgWebsite size={20} />
               </a>
             </div>
           </div>
 
           {/* Contact Info Section */}
-          <div className="text-center md:text-left">
-            <h3 className="text-lg font-bold text-white mb-2 text-center">
+          <div className=" md:text-left sm:text-center">
+            <h3 className="text-lg font-bold text-white mb-2 text-start ">
               Contact Us
             </h3>
             <div className="space-y-2 flex flex-col md:flex-row justify-between gap-10">

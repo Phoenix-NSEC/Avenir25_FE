@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Zap } from "lucide-react"
+import { Link } from "react-router-dom"
 
 export default function Navbar({ isVisible = false }) {
   const [scrolled, setScrolled] = useState(false)
@@ -9,7 +10,7 @@ export default function Navbar({ isVisible = false }) {
   const navRef = useRef(null)
 
   // Logo path - replace with your actual logo path
-  const logoPath = "/Event assets/logo.png"
+  const logoPath = "/images/logo.png"
 
   useEffect(() => {
     // This will make the navbar only appear after the loading is done
@@ -172,12 +173,13 @@ export default function Navbar({ isVisible = false }) {
                 whileTap={{ scale: 0.95 }}
                 className="ml-auto"
               >
-                <button className="relative overflow-hidden inline-flex items-center justify-center rounded-md font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 md:h-9 lg:h-10 px-4 md:px-5 text-xs md:text-sm bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white border-none shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transition-all duration-300">
+                <Link to={"/events"} className="relative overflow-hidden inline-flex items-center justify-center rounded-md font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 md:h-9 lg:h-10 px-4 md:px-5 text-xs md:text-sm bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white border-none shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transition-all duration-300">
+
                   <span className="relative z-10 flex items-center gap-1.5">
                     Register Now
                    
                   </span>
-                </button>
+                </Link>
               </motion.div>
             </div>
 
@@ -288,12 +290,13 @@ export default function Navbar({ isVisible = false }) {
                         transition={{ delay: 0.5, duration: 0.3 }}
                         className="pt-2"
                       >
-                        <button className="relative overflow-hidden inline-flex items-center justify-center w-full rounded-xl font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-12 px-4 py-2 text-sm bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white border-none shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transition-all duration-300">
+                        <Link to={"/events"} className="relative overflow-hidden inline-flex items-center justify-center w-full rounded-xl font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-12 px-4 py-2 text-sm bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white border-none shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transition-all duration-300">
+
                           <span className="relative z-10 flex items-center justify-center gap-1.5 w-full">
                             Register Now
                             <Zap className="h-4 w-4" />
                           </span>
-                        </button>
+                        </Link>
                       </motion.div>
                     </div>
                   </div>

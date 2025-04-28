@@ -155,7 +155,7 @@ export default function AvenirTechFestEvents() {
               <div className="flex items-center justify-center col-span-1 sm:col-span-2 md:col-span-1 mt-4 sm:mt-0">
                 <Link
                   to="/events"
-                  className="bg-gradient-to-r from-pink-700 to-purple-900 hover:from-pink-800 hover:to-purple-900 text-white font-semibold py-3 px-6 sm:py-4 sm:px-8 rounded-full flex items-center gap-2 transition-all transform hover:scale-105 hover:rotate-1 shadow-lg hover:shadow-pink-700/40 border border-pink-500 animate-pulse hover:animate-none"
+                  className="bg-gradient-to-r from-pink-700 to-purple-900 hover:from-pink-800 hover:to-purple-900 text-white font-semibold py-3 px-6 sm:py-4 sm:px-8 rounded-full flex items-center gap-2 transition-all transform hover:scale-105 hover:rotate-1 shadow-lg hover:shadow-pink-700/40 border border-pink-500 hover:animate-none"
                 >
                   <span>Go to Events</span>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -168,7 +168,7 @@ export default function AvenirTechFestEvents() {
 
           {/* Featured Events section */}
           <div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold p-4 md:p-6 text-center text-purple-400">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold px-4 md:px-6 mt-6 text-center text-purple-400">
               Featured Events
             </h2>
 
@@ -190,7 +190,7 @@ export default function AvenirTechFestEvents() {
                       >
                         <div className="absolute inset-0 p-4 sm:p-6 md:p-8 flex flex-col">
                           <div 
-                            ref={(el) => cardRefs.current[index] = el}
+                            ref={(el) => { cardRefs.current[index] = el; }}
                             className={`bg-black border-2 ${colorScheme.accent} p-4 sm:p-6 md:p-8 rounded-xl shadow-xl ${colorScheme.glow} h-full transition-all duration-500 hover:shadow-2xl hover:scale-[1.01]`}
                           >
                             <div className="mb-3 md:mb-4 flex gap-2 flex-wrap">
@@ -257,7 +257,7 @@ export default function AvenirTechFestEvents() {
       </div>
 
       {/* Add custom animation keyframes via style tag */}
-      <style jsx>{`
+      <style>{`
         @keyframes card-entrance {
           0% {
             transform: translateY(20px) scale(0.95);

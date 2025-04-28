@@ -92,7 +92,7 @@ export default function About() {
             <div className="relative aspect-video overflow-hidden rounded-lg border-2 border-purple-900/50 group">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 to-cyan-900/30 z-10" />
               <img
-                src="/images/Avenir_about.jpeg"
+                src="/images/About_Img.png"
                 alt="Avenir Tech Fest"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />

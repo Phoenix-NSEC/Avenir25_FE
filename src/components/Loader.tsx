@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from "react"
 import { motion } from "framer-motion"
 
-export default function Loader({ logoPath = "/Event assets/logo.png" }) {
+export default function Loader({ logoPath = "/images/logo.png" }) {
   const [progress, setProgress] = useState(0)
-  const intervalRef = useRef(null)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
   const [loadingComplete, setLoadingComplete] = useState(false)
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export default function Loader({ logoPath = "/Event assets/logo.png" }) {
       setProgress((prev) => {
         const newProgress = prev + Math.random() * 15
         if (newProgress >= 100) {
-          clearInterval(intervalRef.current)
+          if (intervalRef.current) clearInterval(intervalRef.current as NodeJS.Timeout)
           setLoadingComplete(true)
           return 100
         }
