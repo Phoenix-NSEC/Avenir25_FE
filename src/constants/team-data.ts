@@ -138,7 +138,7 @@ export interface TeamMember {
         },
         {
           id: "wing-3",
-          name: "sagnik Nath",
+          name: "Sagnik Nath",
           designation: "Illustro Lead",
           photo: "/ProfilePics/Sagnik Nath.webp",
           socials: {
@@ -148,7 +148,7 @@ export interface TeamMember {
         },
         {
           id: "wing-4",
-          name: "sayan Khan",
+          name: "Sayan Khan",
           designation: "Illustro Lead",
           photo: "/ProfilePics/Sayan Khan.webp",
           socials: {

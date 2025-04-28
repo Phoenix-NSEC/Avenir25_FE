@@ -3,7 +3,7 @@ import type React from "react"
 import { Link } from "react-router-dom"
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import {mAvenirBaseUrl} from "../config/api.ts"
+import { mAvenirBaseUrl } from "../config/api.ts"
 import {
   Calendar,
   Users,
@@ -133,6 +133,7 @@ export default function EventsPage() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [isMobileFilters, setIsMobileFilters] = useState(false)
   const modalRef = useRef<HTMLDivElement>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // For registration form
   const [showRegistrationForm, setShowRegistrationForm] = useState(false)
@@ -190,12 +191,12 @@ export default function EventsPage() {
         }
         const data = await response.json()
         setEvents(data.events)
-  
+
         // Extract unique categories from subCategory field
         const uniqueCategories: string[] = Array.from(
           new Set(data.events.map((event: Event) => event.subCategory)),
         ).filter(Boolean) as string[]
-  
+
         setCategories(uniqueCategories)
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred")
@@ -203,24 +204,24 @@ export default function EventsPage() {
         setIsLoading(false)
       }
     }
-  
+
     fetchEvents()
   }, [])
-  
+
 
   // Add this useEffect to close event details modal on scroll
-useEffect(() => {
-  const handleScroll = () => {
-    if (selectedEvent) {
-      setSelectedEvent(null);
-    }
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      if (selectedEvent) {
+        setSelectedEvent(null);
+      }
+    };
 
-  window.addEventListener("scroll", handleScroll);
-  return () => {
-    window.removeEventListener("scroll", handleScroll);
-  };
-}, [selectedEvent]);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [selectedEvent]);
   // Filter events based on selected category
   const filteredEvents =
     activeCategory === "All" ? events : events.filter((event) => event.subCategory === activeCategory)
@@ -274,7 +275,7 @@ useEffect(() => {
   const handleRegistrationSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setRegistrationError(null)
-
+    setIsSubmitting(true);
     try {
       // Upload payment image first if available
       let paymentUrl = ""
@@ -282,7 +283,7 @@ useEffect(() => {
         const formData = new FormData()
         formData.append("payment", paymentImage)
 
-        const uploadResponse = await fetch(mAvenirBaseUrl+"/api/v1/registration/upload", {
+        const uploadResponse = await fetch(mAvenirBaseUrl + "/api/v1/registration/upload", {
           method: "POST",
           body: formData,
         })
@@ -304,32 +305,32 @@ useEffect(() => {
       // Prepare registration data
       const registrationData = isTeamEvent
         ? {
-            event: selectedEvent?.eventName || "",
-            teamName: (formData as RegistrationTeamData).teamName || "",
-            teamLeaderName: (formData as RegistrationTeamData).teamLeaderName || "",
-            collegeName: formData.collegeName,
-            whatsappNumber: formData.whatsappNumber,
-            alternateNumber: formData.alternateNumber,
-            email: formData.email,
-            payment: paymentUrl ? "paid" : "unpaid",
-            isVerified: false,
-            members: teamMembers,
-          }
+          event: selectedEvent?.eventName || "",
+          teamName: (formData as RegistrationTeamData).teamName || "",
+          teamLeaderName: (formData as RegistrationTeamData).teamLeaderName || "",
+          collegeName: formData.collegeName,
+          whatsappNumber: formData.whatsappNumber,
+          alternateNumber: formData.alternateNumber,
+          email: formData.email,
+          payment: paymentUrl ? "paid" : "unpaid",
+          isVerified: false,
+          members: teamMembers,
+        }
         : {
-            event: selectedEvent?.eventName || "",
-            name: (formData as RegistrationSingleData).name || "",
-            collegeName: formData.collegeName,
-            whatsappNumber: formData.whatsappNumber,
-            alternateNumber: formData.alternateNumber,
-            email: formData.email,
-            payment: paymentUrl ? "paid" : "unpaid",
-            isVerified: false,
-          }
+          event: selectedEvent?.eventName || "",
+          name: (formData as RegistrationSingleData).name || "",
+          collegeName: formData.collegeName,
+          whatsappNumber: formData.whatsappNumber,
+          alternateNumber: formData.alternateNumber,
+          email: formData.email,
+          payment: paymentUrl ? "paid" : "unpaid",
+          isVerified: false,
+        }
 
       // Submit registration
       const endpoint = isTeamEvent
-        ? mAvenirBaseUrl+"/api/v1/registration/multi"
-        : mAvenirBaseUrl+"/api/v1/registration/single"
+        ? mAvenirBaseUrl + "/api/v1/registration/multi"
+        : mAvenirBaseUrl + "/api/v1/registration/single"
 
       const response = await fetch(endpoint, {
         method: "POST",
@@ -361,8 +362,12 @@ useEffect(() => {
       })
       setTeamMembers([{ name: "", info: "" }])
       setPaymentImage(null)
+      setRegistrationSuccess(true);
+      setShowRegistrationForm(false);
     } catch (err) {
       setRegistrationError(err instanceof Error ? err.message : "Registration failed")
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -582,11 +587,10 @@ useEffect(() => {
               >
                 <div className="grid grid-cols-2 gap-2 mt-3 p-2 bg-gray-800/30 rounded-xl border border-purple-500/10">
                   <button
-                    className={`p-3 rounded-lg transition-all duration-300 ${
-                      activeCategory === "All"
+                    className={`p-3 rounded-lg transition-all duration-300 ${activeCategory === "All"
                         ? "bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-medium shadow-lg shadow-purple-500/20"
                         : "bg-gray-800/50 text-gray-300 hover:bg-gray-700/50"
-                    }`}
+                      }`}
                     onClick={() => {
                       setActiveCategory("All")
                       setIsMobileFilters(false)
@@ -597,11 +601,10 @@ useEffect(() => {
                   {categories.map((category, index) => (
                     <button
                       key={category || index}
-                      className={`p-3 rounded-lg transition-all duration-300 ${
-                        activeCategory === category
+                      className={`p-3 rounded-lg transition-all duration-300 ${activeCategory === category
                           ? "bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-medium shadow-lg shadow-purple-500/20"
                           : "bg-gray-800/50 text-gray-300 hover:bg-gray-700/50"
-                      }`}
+                        }`}
                       onClick={() => {
                         setActiveCategory(category)
                         setIsMobileFilters(false)
@@ -627,11 +630,10 @@ useEffect(() => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
-            className={`px-5 py-2.5 rounded-full transition-all duration-300 ${
-              activeCategory === "All"
+            className={`px-5 py-2.5 rounded-full transition-all duration-300 ${activeCategory === "All"
                 ? "bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-medium shadow-lg shadow-purple-500/20"
                 : "border border-purple-500/30 text-white hover:bg-purple-500/10"
-            }`}
+              }`}
             onClick={() => setActiveCategory("All")}
           >
             All Events
@@ -641,11 +643,10 @@ useEffect(() => {
               key={category || index}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
-              className={`px-5 py-2.5 rounded-full transition-all duration-300 ${
-                activeCategory === category
+              className={`px-5 py-2.5 rounded-full transition-all duration-300 ${activeCategory === category
                   ? "bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-medium shadow-lg shadow-purple-500/20"
                   : "border border-purple-500/30 text-white hover:bg-purple-500/10"
-              }`}
+                }`}
               onClick={() => setActiveCategory(category)}
             >
               {category}
@@ -1218,12 +1219,23 @@ useEffect(() => {
                       className="flex justify-end mt-8"
                     >
                       <motion.button
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.97 }}
+                        whileHover={{ scale: isSubmitting ? 1 : 1.03 }}
+                        whileTap={{ scale: isSubmitting ? 1 : 0.97 }}
                         type="submit"
-                        className="bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-700 hover:to-cyan-600 text-white py-3 px-8 rounded-xl font-medium shadow-lg shadow-purple-500/10 hover:shadow-purple-500/20 transition-all duration-300"
+                        disabled={isSubmitting}
+                        className="bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-700 hover:to-cyan-600 text-white py-3 px-8 rounded-xl font-medium shadow-lg shadow-purple-500/10 hover:shadow-purple-500/20 transition-all duration-300 flex items-center justify-center gap-2"
                       >
-                        Submit Registration
+                        {isSubmitting ? (
+                          <>
+                            <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Submitting...
+                          </>
+                        ) : (
+                          "Submit Registration"
+                        )}
                       </motion.button>
                     </motion.div>
                   </form>

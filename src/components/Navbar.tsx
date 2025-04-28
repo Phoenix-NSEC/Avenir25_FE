@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
-
+import { HashLink } from "react-router-hash-link";
 export default function Navbar({
   isVisibleprop = false,
 }: {
@@ -72,7 +72,7 @@ export default function Navbar({
     // { name: "Events", href: "/events" },
     { name: "Timeline", href: "#timeline" },
     { name: "About", href: "#about" },
-    { name: "Sponsors", href: "#sponsors" },
+    // { name: "Sponsors", href: "#sponsors" },
     { name: "Team", href: "/team" },
     { name: "FAQ", href: "#faq" },
     // { name: "Contact", href: "#contact" },
@@ -152,8 +152,9 @@ export default function Navbar({
                     transition={{ delay: 0.1 * index, duration: 0.5 }}
                     className="relative group"
                   >
-                    <a
-                      href={link.href}
+                    <HashLink
+                      smooth 
+                      to={link.href}
                       className={`relative text-sm lg:text-base transition-all duration-300 ${
                         activeLink === link.href.substring(1)
                           ? "text-purple-400 font-medium"
@@ -170,7 +171,7 @@ export default function Navbar({
                           transition={{ duration: 0.3 }}
                         />
                       )}
-                    </a>
+                    </HashLink>
                   </motion.div>
                 ))}
               </div>
@@ -273,8 +274,9 @@ export default function Navbar({
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.1 * index, duration: 0.3 }}
                         >
-                          <a
-                            href={link.href}
+                          <HashLink
+                            smooth
+                            to={link.href}
                             className={`block py-3 px-4 sm:px-5 rounded-xl transition-all duration-300 text-sm sm:text-base ${
                               activeLink === link.href.substring(1)
                                 ? "text-purple-400"
@@ -292,7 +294,7 @@ export default function Navbar({
                                 />
                               )}
                             </div>
-                          </a>
+                          </HashLink>
                         </motion.div>
                       ))}
 
