@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import { Calendar, Trophy, Users } from "lucide-react"
 import { Link } from "react-router-dom"
 import { EnchantedHeading } from "./EnchantedHeading"
-import {mAvenirBaseUrl} from "../config/api.js"
+import {mAvenirBaseUrl} from "../config/api.ts"
 // Event interface
 interface Event {
   _id: string

@@ -24,7 +24,7 @@ export interface TeamMember {
           id: "core-1",
           name: "Somnath Dutta",
           designation: "President",
-          photo: "/CoreProfilePics/Somnath Dutta.webp",
+          photo: "/ProfilePics/Somnath Dutta.webp",
 
           socials: {
             instagram: "https://www.instagram.com/parth_onenine/",
@@ -36,7 +36,7 @@ export interface TeamMember {
           id: "core-2",
           name: "Junaid Tarafdar",
           designation: "General Secretary",
-          photo: "/CoreProfilePics/Junaid Tarafdar.webp",
+          photo: "/ProfilePics/Junaid Tarafdar.webp",
           socials: {
             instagram: "https://www.instagram.com/_.tfzuu._/",
             // linkedin: "https://linkedin.com/in/priya-patel"
@@ -46,7 +46,7 @@ export interface TeamMember {
           id: "core-3",
           name: "Divya Jyoti Raj",
           designation: "Vice President",
-          photo: "/CoreProfilePics/Divya Raj.webp",
+          photo: "/ProfilePics/Divya Raj.webp",
           socials: {
             instagram: "https://www.instagram.com/heydivyaraj/"
             // linkedin: "https://linked
@@ -58,7 +58,7 @@ export interface TeamMember {
           id: "core-4",
           name: "Mrittika Majumder",
           designation: "Treasurer",
-          photo: "/CoreProfilePics/Mrittika Majumder.webp",
+          photo: "/ProfilePics/Mrittika Majumder.webp",
           socials: {
             instagram: "https://www.instagram.com/mri.tt.ika/",
             // linkedin: "https://linkedin.com/in/rahul-verma",
@@ -69,7 +69,7 @@ export interface TeamMember {
           id: "core-5",
           name: "Debojit Saha",
           designation: "Tech Lead",
-          photo: "/CoreProfilePics/Debojit Saha.webp",
+          photo: "/ProfilePics/Debojit Saha.webp",
           socials: {
             instagram: "https://www.instagram.com/_debojit.___/"
             // linkedin: "https://linkedin.com/in/rahul-verma",
@@ -80,7 +80,7 @@ export interface TeamMember {
           id: "core-6",
           name: "Arnab Das",
           designation: "Convenor",
-          photo: "/CoreProfilePics/Arnab Das.webp",
+          photo: "/ProfilePics/Arnab Das.webp",
           socials: {
             instagram: "https://www.instagram.com/the_ad_virus/",
             // linkedin: "https://linkedin.com/in/rahul-verma",
@@ -91,7 +91,7 @@ export interface TeamMember {
           id: "core-7",
           name: "Debarati Mondal",
           designation: "PR Lead",
-          photo: "/CoreProfilePics/Debarati Mondal.webp",
+          photo: "/ProfilePics/Debarati Mondal.webp",
           socials: {
             instagram: "https://www.instagram.com/deba_arati/"
             // linkedin: "https://linkedin.com/in/rahul-verma",
@@ -102,7 +102,7 @@ export interface TeamMember {
           id: "core-8",
           name: "Sheikh Ikram Hossain",
           designation: "Sponsor & Outreach Lead",
-          photo: "/CoreProfilePics/Sheikh Ikram Hossain.webp",
+          photo: "/ProfilePics/Sheikh Ikram Hossain.webp",
           socials: {
             instagram: "https://www.instagram.com/ikram_storm/"
             // linkedin: "https://linkedin.com/in/rahul-verma",
@@ -118,7 +118,7 @@ export interface TeamMember {
           id: "wing-1",
           name: "Sambaran Das",
           designation: "Cybernix Lead",
-          photo: "/CoreProfilePics/Sambaran Das.webp",
+          photo: "/ProfilePics/Sambaran Das.webp",
           socials: {
             instagram: "https://www.instagram.com/sambarandas04/",
             linkedin: "https://www.linkedin.com/in/sambaran-das/",
@@ -129,7 +129,7 @@ export interface TeamMember {
           id: "wing-2",
           name: "Subhajit Kundu",
           designation: "Cybernix Lead",
-          photo: "/CoreProfilePics/Subhajit Kundu.webp",
+          photo: "/ProfilePics/Subhajit Kundu.webp",
           socials: {
             instagram: "https://www.instagram.com/subhajit_kundu001/",
             linkedin: "https://www.linkedin.com/in/subhajit-kundu-043403207/",
@@ -140,7 +140,7 @@ export interface TeamMember {
           id: "wing-3",
           name: "sagnik Nath",
           designation: "Illustro Lead",
-          photo: "/CoreProfilePics/Sagnik Nath.webp",
+          photo: "/ProfilePics/Sagnik Nath.webp",
           socials: {
             instagram: "https://www.instagram.com/sagnik_20_/",
             // linkedin: "https://linkedin.com/in/arjun-singh"
@@ -150,7 +150,7 @@ export interface TeamMember {
           id: "wing-4",
           name: "sayan Khan",
           designation: "Illustro Lead",
-          photo: "/CoreProfilePics/Sayan Khan.webp",
+          photo: "/ProfilePics/Sayan Khan.webp",
           socials: {
             instagram: "https://www.instagram.com/sayank2004/",
             // linkedin: "https://linkedin.com/in/arjun-singh"
@@ -160,7 +160,7 @@ export interface TeamMember {
           id: "wing-5",
           name: "Anushka Tarafdar",
           designation: "Robonix Lead",
-          photo: "/CoreProfilePics/Anushka Tarafdar.webp",
+          photo: "/ProfilePics/Anushka Tarafdar.webp",
           socials: {
             instagram: "https://www.instagram.com/anushka_tarafdar/",
             // linkedin: "https://linkedin.com/in/meera-joshi"
@@ -168,9 +168,9 @@ export interface TeamMember {
         },
         {
           id: "wing-6",
-          name: "shrestha Chandra",
+          name: "Srestha Chandra",
           designation: "Robonix Lead",
-          photo: "/CoreProfilePics/", /*------------------------------------------------------------------------------------------------------- */
+          photo: "/ProfilePics/Srestha Chandra.webp", /*------------------------------------------------------------------------------------------------------- */
           socials: {
             
             // instagram: "https://instagram.com/meera",
@@ -181,7 +181,7 @@ export interface TeamMember {
           id: "wing-7",
           name: "Shramana Bhattacharya",
           designation: "Eloquense Lead",
-          photo: "/CoreProfilePics/Shramana Bhattacharya.webp",
+          photo: "/ProfilePics/Shramana Bhattacharya.webp",
           socials: {
             instagram: "https://www.instagram.com/shramana_2003/"
             // linkedin: "https://linkedin.com/in/karthik-rajan",
@@ -192,7 +192,7 @@ export interface TeamMember {
           id: "wing-8",
           name: "Ayanangshu Maity",
           designation: "Eloquense Lead",
-          photo: "/CoreProfilePics/Ayanangshu Maity.webp",
+          photo: "/ProfilePics/Ayanangshu Maity.webp",
           socials: {
             instagram: "https://www.instagram.com/npc_maity/"
             // linkedin: "https://linkedin.com/in/karthik-rajan",
@@ -203,7 +203,7 @@ export interface TeamMember {
           id: "wing-9",
           name: "Sonu Kumar",
           designation: "Virtuix Lead",
-          photo: "/CoreProfilePics/Sonu Kumar.webp",
+          photo: "/ProfilePics/Sonu Kumar.webp",
           socials: {
             // instagram: "https://www.instagram.com/anushka_tarafdar/"
             // linkedin: "https://linkedin.com/in/karthik-rajan",
@@ -214,7 +214,7 @@ export interface TeamMember {
           id: "wing-10",
           name: "Rishav Chanda",
           designation: "Virtuix Lead",
-          photo: "/CoreProfilePics/Rhishav Chanda.webp",
+          photo: "/ProfilePics/Rhishav Chanda.webp",
           socials: {
             // instagram: "https://www.instagram.com/anushka_tarafdar/"
             // linkedin: "https://linkedin.com/in/karthik-rajan",
@@ -225,7 +225,7 @@ export interface TeamMember {
           id: "wing-7",
           name: "Rudranil Das",
           designation: "Virtuix Lead",
-          photo: "/CoreProfilePics/Rudranil Das.webp",
+          photo: "/ProfilePics/Rudranil Das.webp",
           socials: {
             instagram: "https://www.instagram.com/__.rudranil.__/"
             // linkedin: "https://linkedin.com/in/karthik-rajan",
@@ -236,7 +236,7 @@ export interface TeamMember {
           id: "wing-8",
           name: "Krishnava Ghosh",
           designation: "Asst Tech Lead",
-          photo: "/CoreProfilePics/",
+          photo: "/ProfilePics/Krishnava Ghosh.webp",
           socials: {
             instagram: "https://www.instagram.com/krishnava_ghosh/",
             linkedin: "https://www.linkedin.com/in/krishnavaghosh/",
@@ -252,7 +252,7 @@ export interface TeamMember {
           id: "dev-1",
           name: "Sambaran Das",
           designation: "Web Administrator",
-          photo: "/CoreProfilePics/Sambaran Das.webp",
+          photo: "/ProfilePics/Sambaran Das.webp",
           socials: {
             instagram: "https://www.instagram.com/sambarandas04/",
             linkedin: "https://www.linkedin.com/in/sambaran-das/",
@@ -263,7 +263,7 @@ export interface TeamMember {
           id: "dev-2",
           name: "Subhajit Kundu",
           designation: "Web Administrator",
-          photo: "/CoreProfilePics/Subhajit Kundu.webp",
+          photo: "/ProfilePics/Subhajit Kundu.webp",
           socials: {
             instagram: "https://www.instagram.com/subhajit_kundu001/",
             linkedin: "https://www.linkedin.com/in/subhajit-kundu-043403207/",
@@ -274,7 +274,7 @@ export interface TeamMember {
           id: "dev-3",
           name: "Krishnava Ghosh",
           designation: "Web Administrator",
-          photo: "/CoreProfilePics/",/*?????????????????????????????????????????????????????????????????????????????????????????????????????*/
+          photo: "/ProfilePics/Krishnava Ghosh.webp",
           socials: {
             instagram: "https://www.instagram.com/krishnava_ghosh/",
             linkedin: "https://www.linkedin.com/in/krishnavaghosh/",
@@ -285,7 +285,7 @@ export interface TeamMember {
           id: "dev-4",
           name: "Amrit Bhattacharya",
           designation: "Full Stack Developer",
-          photo: "/CoreProfilePics/Amrit Bhattacharya.webp",
+          photo: "/ProfilePics/Amrit Bhattacharya.webp",
           socials: {
             instagram: "https://www.instagram.com/amritb03",
             linkedin: "https://www.linkedin.com/in/amritbhattacharya2003/",
@@ -296,7 +296,7 @@ export interface TeamMember {
           id: "dev-5",
           name: "Anindita Dey",
           designation: "Frontend Developer",
-          photo: "/CoreProfilePics/Anindita Dey.webp",
+          photo: "/ProfilePics/Anindita Dey.webp",
           socials: {
             instagram: "https://www.instagram.com/__pastel_hues__/",
             linkedin: "https://www.linkedin.com/in/anindita-dey-b81210217/",
@@ -307,7 +307,7 @@ export interface TeamMember {
           id: "dev-6",
           name: "Dibyendu Mandal",
           designation: "Full Stack Developer",
-          photo: "/CoreProfilePics/Dibyendu Mandal.webp",
+          photo: "/ProfilePics/Dibyendu Mandal.webp",
           socials: {
             instagram: "https://www.instagram.com/dibyendu_04_?utm_source=qr&igsh=MTNsdXU4ZTFtYWJxaQ%3D%3D",
             linkedin: "https://www.linkedin.com/in/dibyendu-mandal-url/",
@@ -318,7 +318,7 @@ export interface TeamMember {
           id: "dev-7",
           name: "Gourab Das",
           designation: "Frontend Developer",
-          photo: "/CoreProfilePics/Gourab Das.webp",
+          photo: "/ProfilePics/Gourab Das.webp",
           socials: {
             instagram: "https://www.instagram.com/mrdot_it/",
             linkedin: "https://www.linkedin.com/in/gourab2005/",
@@ -329,7 +329,7 @@ export interface TeamMember {
           id: "dev-8",
           name: "Sayan Mondal",
           designation: "Frontend Developer",
-          photo: "/CoreProfilePics/Sayan Mondal.webp",
+          photo: "/ProfilePics/Sayan Mondal.webp",
           socials: {
             instagram: "https://www.instagram.com/sayan_1.6.4.3/",
             linkedin: "https://www.linkedin.com/in/sayan-mondal-4b5835255/",
@@ -340,7 +340,7 @@ export interface TeamMember {
           id: "dev-9",
           name: "Sebanti Dasgupta",
           designation: "Full Stack Developer",
-          photo: "/CoreProfilePics/Sebanti.webp",
+          photo: "/ProfilePics/Sebanti.webp",
           socials: {
             instagram: "https://www.instagram.com/sdasgupta39/",
             linkedin: "https://www.linkedin.com/in/sebanti-dasgupta-515541243/",

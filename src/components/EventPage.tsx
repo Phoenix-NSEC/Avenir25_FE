@@ -3,7 +3,7 @@ import type React from "react"
 import { Link } from "react-router-dom"
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import {mAvenirBaseUrl} from "../config/api.js"
+import {mAvenirBaseUrl} from "../config/api.ts"
 import {
   Calendar,
   Users,
@@ -282,7 +282,7 @@ useEffect(() => {
         const formData = new FormData()
         formData.append("payment", paymentImage)
 
-        const uploadResponse = await fetch("http://localhost:4000/api/v1/registration/upload", {
+        const uploadResponse = await fetch(mAvenirBaseUrl+"/api/v1/registration/upload", {
           method: "POST",
           body: formData,
         })
@@ -328,8 +328,8 @@ useEffect(() => {
 
       // Submit registration
       const endpoint = isTeamEvent
-        ? "http://localhost:4000/api/v1/registration/multi"
-        : "http://localhost:4000/api/v1/registration/single"
+        ? mAvenirBaseUrl+"/api/v1/registration/multi"
+        : mAvenirBaseUrl+"/api/v1/registration/single"
 
       const response = await fetch(endpoint, {
         method: "POST",

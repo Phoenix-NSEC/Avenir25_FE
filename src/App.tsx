@@ -42,13 +42,13 @@ const App = () => {
     <div className="bg-gray-900 min-h-screen text-white">
       <AnimatePresence>{loading && <Loader />}</AnimatePresence>
       <AnimatedBackground />
-      <Navbar isVisible={!loading}/>
+      <Navbar isVisibleprop={!loading}/>
       <section id="home">
         <Hero />
       </section>
-      <section id="events">
+      {/* <section id="events">
         <Events />
-      </section>
+      </section> */}
       <section id="timeline">
         <TimeLine />
       </section>

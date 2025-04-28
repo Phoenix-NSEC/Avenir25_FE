@@ -4,7 +4,6 @@ import './index.css'
 import App from './App.tsx';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Team from './components/Team.tsx';
-import FAQ from './components/FAQ.tsx';
 import EventPage from './components/EventPage.tsx';
 
 

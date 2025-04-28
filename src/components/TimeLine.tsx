@@ -45,7 +45,7 @@ const TimeLine = () => {
                     viewport={{ once: true }}
                   >
                     <div className="size-6 rounded-full bg-gradient-to-br from-purple-600 to-cyan-400 z-20 shadow-lg shadow-purple-500/50 flex items-center justify-center text-sm">
-                      {item.icon}
+                      
                     </div>
                     <div className="absolute size-12 rounded-full bg-purple-500/20 animate-pulse" />
                   </motion.div>

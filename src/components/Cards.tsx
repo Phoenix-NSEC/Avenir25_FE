@@ -123,9 +123,9 @@ export default function Cards() {
   //     setMousePosition({ x, y })
   //   }
 
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [isMobile])
+  //   window.addEventListener("mousemove", handleMouseMove)
+  //   return () => window.removeEventListener("mousemove", handleMouseMove)
+  // }, [isMobile])
 
   const filteredEvents = activeCategory === "All" ? events : events.filter((event) => event.category === activeCategory)
 

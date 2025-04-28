@@ -10,7 +10,7 @@ const Hero = () => {
   })
 
   const [eventTitle, setEventTitle] = useState("TECH FEST")
-  const [eventDate, setEventDate] = useState("April 25, 2025")
+  const [eventDate, setEventDate] = useState("May 9, 2025")
   const logoRef = useRef<HTMLDivElement>(null)
   const ringRef = useRef<HTMLDivElement>(null)
   const sparklesRef = useRef<HTMLDivElement>(null)
@@ -193,7 +193,7 @@ const Hero = () => {
                       clipRule="evenodd"
                     />
                   </svg>
-                  <p className="text-xs sm:text-sm md:text-base font-medium text-purple-300">APRIL 25-26, 2025</p>
+                  <p className="text-xs sm:text-sm md:text-base font-medium text-purple-300">May 9-12, 2025</p>
                 </div>
                 <div className="hidden sm:block h-4 w-px bg-purple-700"></div>
                 <div className="flex items-center">

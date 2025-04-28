@@ -3,10 +3,11 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, Zap } from "lucide-react"
 import { Link } from "react-router-dom"
 
-export default function Navbar({ isVisible = false }) {
+export default function Navbar({ isVisibleprop = false }:{ isVisible: boolean }) {
   const [scrolled, setScrolled] = useState(false)
   const [activeLink, setActiveLink] = useState("home")
   const [isOpen, setIsOpen] = useState(false)
+  const [isVisible, setIsVisible] = useState(isVisibleprop)
   const navRef = useRef(null)
 
   // Logo path - replace with your actual logo path
@@ -61,7 +62,7 @@ export default function Navbar({ isVisible = false }) {
 
   const navLinks = [
     { name: "Home", href: "#home" },
-    { name: "Events", href: "/events" },
+    // { name: "Events", href: "/events" },
     { name: "Timeline", href: "#timeline" },
     { name: "About", href: "#about" },
     { name: "Sponsors", href: "#sponsors" },
