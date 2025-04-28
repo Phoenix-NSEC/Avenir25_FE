@@ -4,7 +4,7 @@ import {
   FaFacebook,
   FaInstagram,
   FaLinkedin,
-  
+
 } from "react-icons/fa";
 import { CgWebsite } from "react-icons/cg";
 
@@ -79,24 +79,57 @@ export default function Footer() {
                   Techno City, Garia, Kolkata - 700152
                 </span>
               </div>
-              <div className="flex items-center justify-center md:justify-start">
-                <span className="text-purple-400 mr-2">✉️</span>
-                <a
-                  href="mailto:avenir@nsec.com"
-                  className="text-white/70 hover:text-purple-400 transition-colors"
-                >
-                  avenir@nsec.com
-                </a>
+              <div className="flex flex-col items-center md:items-start">
+                <div className="flex items-center mb-2">
+                  <span className="text-purple-400 mr-2">✉️</span>
+                  <a
+                    href="mailto:avenir@nsec.com"
+                    className="text-white/70 hover:text-purple-400 transition-colors"
+                  >
+                    mail.avenirphoenix@gmail.com
+                  </a>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-purple-400 mr-2">✉️</span>
+                  <a
+                    href="mailto:avenir@nsec.com"
+                    className="text-white/70 hover:text-purple-400 transition-colors"
+                  >
+                    mail.phoenixnsec@gmail.com
+                  </a>
+                </div>
               </div>
-              <div className="flex items-center justify-center md:justify-start">
-                <span className="text-purple-400 mr-2">📞</span>
-                <a
-                  href="tel:+919876543210"
-                  className="text-white/70 hover:text-purple-400 transition-colors"
-                >
-                  +91 98765 43210
-                </a>
+
+              <div className="flex flex-col items-center justify-center md:items-start md:justify-start space-y-2">
+                <div className="flex items-center">
+                  <span className="text-purple-400 mr-2">📞</span>
+                  <a
+                    href="tel:+919874673245"
+                    className="text-white/70 hover:text-purple-400 transition-colors"
+                  >
+                    +91 98746 73245
+                  </a>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-purple-400 mr-2">📞</span>
+                  <a
+                    href="tel:+917908957844"
+                    className="text-white/70 hover:text-purple-400 transition-colors"
+                  >
+                    +91 79089 57844
+                  </a>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-purple-400 mr-2">📞</span>
+                  <a
+                    href="tel:+916299602959"
+                    className="text-white/70 hover:text-purple-400 transition-colors"
+                  >
+                    +91 6299 602 959
+                  </a>
+                </div>
               </div>
+
             </div>
           </div>
         </div>
