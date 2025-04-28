@@ -1,51 +1,55 @@
-"use client"
+"use client";
 
-import { useEffect, useRef } from "react"
-import { motion } from "framer-motion"
+import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 type Particle = {
-  x: number
-  y: number
-  size: number
-  speedX: number
-  speedY: number
-  color: string
-  opacity: number
-}
+  x: number;
+  y: number;
+  size: number;
+  speedX: number;
+  speedY: number;
+  color: string;
+  opacity: number;
+};
 
 export default function AnimatedParticles() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const particles = useRef<Particle[]>([])
-  const animationFrameId = useRef<number>(0)
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const particles = useRef<Particle[]>([]);
+  const animationFrameId = useRef<number>(0);
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
+    const maybeCanvas = canvasRef.current;
+    if (!maybeCanvas) return;
 
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
+    const canvas: HTMLCanvasElement = maybeCanvas;
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    // Create a properly typed context that we know is not null
+    const ctx: CanvasRenderingContext2D = context;
 
     // Set canvas to full screen
     const handleResize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-      initParticles()
-    }
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+    };
 
-    window.addEventListener("resize", handleResize)
-    handleResize()
+    window.addEventListener("resize", handleResize);
+    handleResize();
 
     // Initialize particles
     function initParticles() {
-      particles.current = []
-      const particleCount = Math.min(Math.floor(window.innerWidth / 10), 100)
+      particles.current = [];
+      const particleCount = Math.min(Math.floor(window.innerWidth / 10), 100);
 
       const colors = [
         "rgba(147, 51, 234, 0.7)", // Purple
         "rgba(79, 70, 229, 0.7)", // Indigo
         "rgba(6, 182, 212, 0.7)", // Cyan
         "rgba(236, 72, 153, 0.7)", // Pink
-      ]
+      ];
 
       for (let i = 0; i < particleCount; i++) {
         particles.current.push({
@@ -56,66 +60,66 @@ export default function AnimatedParticles() {
           speedY: (Math.random() - 0.5) * 0.5,
           color: colors[Math.floor(Math.random() * colors.length)],
           opacity: Math.random() * 0.5 + 0.2,
-        })
+        });
       }
     }
 
     // Animation loop
     function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Update and draw particles
       particles.current.forEach((particle) => {
-        particle.x += particle.speedX
-        particle.y += particle.speedY
+        particle.x += particle.speedX;
+        particle.y += particle.speedY;
 
         // Bounce off edges
         if (particle.x < 0 || particle.x > canvas.width) {
-          particle.speedX *= -1
+          particle.speedX *= -1;
         }
 
         if (particle.y < 0 || particle.y > canvas.height) {
-          particle.speedY *= -1
+          particle.speedY *= -1;
         }
 
         // Draw particle
-        ctx.beginPath()
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
-        ctx.fillStyle = particle.color
-        ctx.globalAlpha = particle.opacity
-        ctx.fill()
-      })
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fillStyle = particle.color;
+        ctx.globalAlpha = particle.opacity;
+        ctx.fill();
+      });
 
       // Draw connections between particles
-      ctx.globalAlpha = 0.2
-      ctx.strokeStyle = "rgba(147, 51, 234, 0.2)"
-      ctx.lineWidth = 0.5
+      ctx.globalAlpha = 0.2;
+      ctx.strokeStyle = "rgba(147, 51, 234, 0.2)";
+      ctx.lineWidth = 0.5;
 
       for (let i = 0; i < particles.current.length; i++) {
         for (let j = i + 1; j < particles.current.length; j++) {
-          const dx = particles.current[i].x - particles.current[j].x
-          const dy = particles.current[i].y - particles.current[j].y
-          const distance = Math.sqrt(dx * dx + dy * dy)
+          const dx = particles.current[i].x - particles.current[j].x;
+          const dy = particles.current[i].y - particles.current[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < 100) {
-            ctx.beginPath()
-            ctx.moveTo(particles.current[i].x, particles.current[i].y)
-            ctx.lineTo(particles.current[j].x, particles.current[j].y)
-            ctx.stroke()
+            ctx.beginPath();
+            ctx.moveTo(particles.current[i].x, particles.current[i].y);
+            ctx.lineTo(particles.current[j].x, particles.current[j].y);
+            ctx.stroke();
           }
         }
       }
 
-      animationFrameId.current = requestAnimationFrame(animate)
+      animationFrameId.current = requestAnimationFrame(animate);
     }
 
-    animate()
+    animate();
 
     return () => {
-      window.removeEventListener("resize", handleResize)
-      cancelAnimationFrame(animationFrameId.current)
-    }
-  }, [])
+      window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(animationFrameId.current);
+    };
+  }, []);
 
   return (
     <motion.canvas
@@ -125,5 +129,5 @@ export default function AnimatedParticles() {
       transition={{ duration: 1.5 }}
       className="fixed inset-0 pointer-events-none z-0"
     />
-  )
+  );
 }
