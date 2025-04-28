@@ -18,14 +18,16 @@ export default function Navbar({
   const logoPath = "/images/logo.png";
 
   useEffect(() => {
-    // This will make the navbar only appear after the loading is done
-    // Initial delay to match the loader duration in App.js (3500ms)
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
+    if (!isVisibleprop) {
+      const timer = setTimeout(() => {
+        setIsVisible(true);
+      }, 3500); 
+      
+      return () => clearTimeout(timer);
+    } else {
+      setIsVisible(isVisibleprop);
+    }
+  }, [isVisibleprop]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -113,9 +115,8 @@ export default function Navbar({
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className={`relative rounded-3xl w-full transition-all duration-500 py-2 sm:py-3 md:py-4 px-4 sm:px-5 md:px-6 bg-black ${
-            scrolled ? "bg-opacity-60 shadow-lg" : "bg-opacity-40"
-          }`}
+          className={`relative rounded-3xl w-full transition-all duration-500 py-2 sm:py-3 md:py-4 px-4 sm:px-5 md:px-6 bg-black ${scrolled ? "bg-opacity-60 shadow-lg" : "bg-opacity-40"
+            }`}
         >
           <div className="relative flex justify-between items-center">
             <a href="/" className="flex items-center gap-1 md:gap-2 group">
@@ -153,13 +154,12 @@ export default function Navbar({
                     className="relative group"
                   >
                     <HashLink
-                      smooth 
+                      smooth
                       to={link.href}
-                      className={`relative text-sm lg:text-base transition-all duration-300 ${
-                        activeLink === link.href.substring(1)
+                      className={`relative text-sm lg:text-base transition-all duration-300 ${activeLink === link.href.substring(1)
                           ? "text-purple-400 font-medium"
                           : "text-gray-300 hover:text-white"
-                      }`}
+                        }`}
                     >
                       {link.name}
                       {activeLink === link.href.substring(1) && (
@@ -186,7 +186,12 @@ export default function Navbar({
                 className="ml-auto"
               >
                 <Link
-                  to={"/events"}
+                  // to={"/events"}
+                  to="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    alert("Registration is opening soon!");
+                  }}
                   className="relative overflow-hidden inline-flex items-center justify-center rounded-md font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 md:h-9 lg:h-10 px-4 md:px-5 text-xs md:text-sm bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white border-none shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transition-all duration-300"
                 >
                   <span className="relative z-10 flex items-center gap-1.5">
@@ -277,11 +282,10 @@ export default function Navbar({
                           <HashLink
                             smooth
                             to={link.href}
-                            className={`block py-3 px-4 sm:px-5 rounded-xl transition-all duration-300 text-sm sm:text-base ${
-                              activeLink === link.href.substring(1)
+                            className={`block py-3 px-4 sm:px-5 rounded-xl transition-all duration-300 text-sm sm:text-base ${activeLink === link.href.substring(1)
                                 ? "text-purple-400"
                                 : "text-gray-300 hover:text-white"
-                            }`}
+                              }`}
                             onClick={() => setIsOpen(false)}
                           >
                             <div className="flex items-center">
@@ -305,7 +309,12 @@ export default function Navbar({
                         className="pt-2"
                       >
                         <Link
-                          to={"/events"}
+                          // to={"/events"}
+                          to="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            alert("Registration is opening soon!");
+                          }}
                           className="relative overflow-hidden inline-flex items-center justify-center w-full rounded-xl font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-12 px-4 py-2 text-sm bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white border-none shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transition-all duration-300"
                         >
                           <span className="relative z-10 flex items-center justify-center gap-1.5 w-full">

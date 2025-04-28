@@ -146,7 +146,7 @@ const Hero = () => {
 
               {/* 3D Text Effect for AVENIR'25 */}
               <div className="relative perspective-1000 ">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight avenir-3d-text">
+                <h1 className="text-5xl sm:text-9xl md:text-6xl lg:text-7xl font-extrabold leading-tight avenir-3d-text">
                   <span className="avenir-letter">A</span>
                   <span className="avenir-letter">V</span>
                   <span className="avenir-letter">E</span>
@@ -489,26 +489,27 @@ const Hero = () => {
           color: transparent;
         }
         
-        .avenir-letter {
-          display: inline-block;
-          background: linear-gradient(to bottom, #c084fc, #8b5cf6);
-          background-clip: text;
-          -webkit-background-clip: text;
-          color: transparent;
-          text-shadow: 
-            0 1px 0 #a855f7,
-            0 2px 0 #9333ea,
-            0 3px 0 #7e22ce,
-            0 4px 0 #6b21a8,
-            0 5px 0 #581c87,
-            0 6px 0 #4c1d95,
-            0 7px 0 #4338ca,
-            0 8px 10px rgba(90, 40, 140, 0.8);
-          transform-style: preserve-3d;
-          position: relative;
-          animation: letter-hover 3s ease-in-out infinite alternate;
-          animation-delay: calc(var(--index, 0) * 0.1s);
-        }
+.avenir-letter {
+  display: inline-block;
+  background: linear-gradient(to bottom, #f8f5ff, #e9d5ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 
+    0 1px 0 #f8f5ff,
+    0 2px 0 #f3e8ff,
+    0 3px 0 #e9d5ff,
+    0 4px 0 #d8b4fe,
+    0 5px 0 #c084fc,
+    0 6px 0 #c084fc,
+    0 7px 0 #c084fc,
+    0 8px 15px rgba(220, 200, 250, 0.25); /* lighter glow */
+  transform-style: preserve-3d;
+  position: relative;
+  animation: letter-hover 3s ease-in-out infinite alternate;
+  animation-delay: calc(var(--index, 0) * 0.1s);
+}
+
         
         .avenir-letter:nth-child(1) { --index: 1; }
         .avenir-letter:nth-child(2) { --index: 2; }

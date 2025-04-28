@@ -57,30 +57,30 @@ export default function About() {
             </p>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-      {[
-        { icon: <Users className="h-8 w-8 text-purple-400 mb-2" />, value: "5000+", label: "Participants" },
-        { icon: <Calendar className="h-8 w-8 text-cyan-400 mb-2" />, value: "10th", label: "Edition" },
-        { icon: <Trophy className="h-8 w-8 text-yellow-400 mb-2" />, value: "50+", label: "Events" },
-        { icon: <Award className="h-8 w-8 text-pink-400 mb-2" />, value: "₹10L+", label: "Prize Pool" },
-      ].map((stat, index) => (
-        <motion.div
-          key={stat.label}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: index * 0.1 }}
-          viewport={{ once: true }}
-          className="flex flex-col items-center p-4 bg-black/40 backdrop-blur-sm border border-purple-900/50 rounded-lg hover:border-purple-500/70 transition-colors duration-300"
-        >
-          {stat.icon}
-          <span className="text-2xl font-bold text-white">
-            <CountUpComponent duration={2000} delay={index * 200}>
-              {stat.value}
-            </CountUpComponent>
-          </span>
-          <span className="text-sm text-purple-300/80">{stat.label}</span>
-        </motion.div>
-      ))}
-    </div>
+              {[
+                { icon: <Users className="h-8 w-8 text-purple-400 mb-2" />, value: "5000+", label: "Participants" },
+                { icon: <Calendar className="h-8 w-8 text-cyan-400 mb-2" />, value: "10th", label: "Edition" },
+                { icon: <Trophy className="h-8 w-8 text-yellow-400 mb-2" />, value: "50+", label: "Events" },
+                { icon: <Award className="h-8 w-8 text-pink-400 mb-2" />, value: "₹10L+", label: "Prize Pool" },
+              ].map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="flex flex-col items-center p-4 bg-black/40 backdrop-blur-sm border border-purple-900/50 rounded-lg hover:border-purple-500/70 transition-colors duration-300"
+                >
+                  {stat.icon}
+                  <span className="text-2xl font-bold text-white">
+                    <CountUpComponent duration={2000} delay={index * 200}>
+                      {stat.value}
+                    </CountUpComponent>
+                  </span>
+                  <span className="text-sm text-purple-300/80">{stat.label}</span>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div
@@ -113,7 +113,7 @@ export default function About() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="absolute -bottom-6 -right-6 p-6 bg-black/80 backdrop-blur-sm border border-purple-900/50 rounded-lg max-w-xs z-20 hover:shadow-[0_0_15px_rgba(168,85,247,0.3)] transition-shadow duration-300"
+              className="absolute -bottom-6 -right-6 p-6 bg-black/80 backdrop-blur-sm border border-purple-900/50 rounded-lg max-w-xs z-20 hover:shadow-[0_0_15px_rgba(168,85,247,0.3)] transition-shadow duration-300 hidden md:block"
             >
               <h4 className="text-xl font-bold text-purple-300 mb-2">Phoenix Club</h4>
               <p className="text-white/80 text-sm">
@@ -121,6 +121,7 @@ export default function About() {
                 innovation and technical excellence.
               </p>
             </motion.div>
+
 
             {/* Floating decorative elements */}
             <motion.div
