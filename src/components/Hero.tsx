@@ -139,14 +139,14 @@ const Hero = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center max-w-7xl mx-auto">
           {/* Left Side - Text Content - COMPLETELY TRANSPARENT */}
           <div className="p-5 sm:p-6 md:p-8 rounded-3xl transform transition-all duration-500 hover:shadow-purple-600/20 hover:border-purple-400/40 ">
-            <div className="mb-6 md:mb-8">
+            <div className="mb-6 md:mb-8 md:mt-4 mt-8">
               <div className="inline-block px-3 py-1 md:px-4 md:py-1.5 mb-4 text-xs font-bold tracking-wider text-purple-200 bg-purple-900/70 rounded-full shadow-lg shadow-purple-900/30 transform hover:scale-105 transition-all duration-300">
                 PHOENIX PRESENTS
               </div>
 
               {/* 3D Text Effect for AVENIR'25 */}
               <div className="relative perspective-1000 ">
-                <h1 className="text-5xl sm:text-9xl md:text-6xl lg:text-7xl font-extrabold leading-tight avenir-3d-text">
+                <h1 className="text-6xl sm:text-9xl md:text-6xl lg:text-7xl font-extrabold leading-tight avenir-3d-text">
                   <span className="avenir-letter">A</span>
                   <span className="avenir-letter">V</span>
                   <span className="avenir-letter">E</span>
