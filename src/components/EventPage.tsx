@@ -3,6 +3,7 @@ import type React from "react"
 import { Link } from "react-router-dom"
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import {mAvenirBaseUrl} from "../config/api.js"
 import {
   Calendar,
   Users,
@@ -184,25 +185,29 @@ export default function EventsPage() {
     const fetchEvents = async () => {
       setIsLoading(true)
       try {
-        const response = await axios.get("http://localhost:4000/api/v1/events")
-        const data = await response.data
+        const response = await fetch(mAvenirBaseUrl + "/api/v1/events")
+        if (!response.ok) {
+          throw new Error("Network response was not ok")
+        }
+        const data = await response.json()
         setEvents(data.events)
-
+  
         // Extract unique categories from subCategory field
         const uniqueCategories: string[] = Array.from(
           new Set(data.events.map((event: Event) => event.subCategory)),
         ).filter(Boolean) as string[]
-
+  
         setCategories(uniqueCategories)
-        setIsLoading(false)
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred")
+      } finally {
         setIsLoading(false)
       }
     }
-
+  
     fetchEvents()
   }, [])
+  
 
   // Add this useEffect to close event details modal on scroll
 useEffect(() => {

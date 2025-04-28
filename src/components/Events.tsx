@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import { Calendar, Trophy, Users } from "lucide-react"
 import { Link } from "react-router-dom"
 import { EnchantedHeading } from "./EnchantedHeading"
-
+import {mAvenirBaseUrl} from "../config/api.js"
 // Event interface
 interface Event {
   _id: string
@@ -65,7 +65,7 @@ export default function AvenirTechFestEvents() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api/v1/events")
+        const response = await fetch(mAvenirBaseUrl+"/api/v1/events")
         const data = await response.json()
 
         if (data && data.events && data.events.length > 0) {
