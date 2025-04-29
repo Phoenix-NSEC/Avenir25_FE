@@ -62,17 +62,17 @@ export default function Footer() {
             <div className="flex items-center space-x-4 mb-6">
               {/* Phoenix logo */}
               <motion.img
-                src="https://phoenixnsec.in/static/media/logo1.a52d489a9dc1f01e80f6.png"
+                src="https://scontent.fccu4-3.fna.fbcdn.net/v/t39.30808-6/261065045_4317968181646869_7909860385254315985_n.png?_nc_cat=104&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=QRII1Tjq1jkQ7kNvwGCHW2b&_nc_oc=Adk0D2V49tAFLzGLSzBojhZ7OiXDrNDGW6exYBFnVHiw3M_z72cswHEx0VrJ34DKidtiKlkW-2YnmG6AXIfKb8HB&_nc_zt=23&_nc_ht=scontent.fccu4-3.fna&_nc_gid=7nNPbaxuA3zep_Tjo4G8Dg&oh=00_AfGtwoUcW_PBOaDXKQyDWzBWKyfhX8tstYr6oVgJwzYs9g&oe=6816406C"
                 alt="Phoenix Logo"
-                className="h-8 w-auto"
+                className="h-12 w-auto rounded-3xl"
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.3 }}
               />
               {/* College logo */}
               <motion.img
-                src="https://www.nsec.ac.in/images/NSEC_Logo.png"
+                src="https://images.shiksha.com/mediadata/images/1626242104phpBTnz7j.jpeg"
                 alt="NSEC Logo"
-                className="h-8 w-auto"
+                className="h-12 w-auto rounded-3xl"
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.3 }}
               />
@@ -91,7 +91,7 @@ export default function Footer() {
                   href: "https://www.linkedin.com/company/phoenix-the-official-tech-club-of-netaji-subhash-engineering-college/",
                   label: "LinkedIn",
                 },
-                { icon: CgWebsite, href: "https://phoenixnsec.in/static/media/logo1.a52d489a9dc1f01e80f6.png", label: "Website" },
+                { icon: CgWebsite, href: "https://phoenixnsec.in/", label: "Website" },
               ].map((social, index) => (
                 <motion.a
                   key={social.label}

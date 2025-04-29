@@ -18,7 +18,7 @@ const TimeLine = () => {
         </motion.div>
 
         <div className="relative">
-          {/* Center line for larger screens, side line for mobile */}
+          {/* Center line for both mobile and desktop */}
           <div className="absolute left-4 lg:left-1/2 top-0 bottom-0 transform lg:-translate-x-1/2 w-1 bg-gradient-to-b from-purple-600 via-cyan-500 to-purple-600 z-0" />
 
           <div className="grid grid-cols-1 gap-4 relative z-10">
@@ -36,8 +36,8 @@ const TimeLine = () => {
                 viewport={{ once: true, amount: 0.3 }}
                 className="relative"
               >
-                {/* Timeline dot with positioning for both mobile and desktop */}
-                <div className="absolute left-4 lg:left-1/2 top-10 transform lg:-translate-x-1/2 w-6 h-6 flex items-center justify-center">
+                {/* Timeline dot with fixed positioning - centered on the line for both mobile and desktop */}
+                <div className="absolute left-4 lg:left-1/2 top-10 transform -translate-x-1/2 lg:-translate-x-1/2 w-6 h-6 flex items-center justify-center">
                   <motion.div 
                     className="relative flex items-center justify-center"
                     whileInView={{ scale: [0.8, 1.2, 1] }}
@@ -58,8 +58,8 @@ const TimeLine = () => {
                     <div className="hidden lg:block w-1/2" />
                   )}
                   
-                  {/* Content container */}
-                  <div className={`w-full lg:w-1/2 pl-12 lg:pl-0 ${
+                  {/* Content container - increased left padding for mobile */}
+                  <div className={`w-full lg:w-1/2 pl-16 lg:pl-0 ${
                     index % 2 === 0 
                       ? "lg:pr-12 lg:text-right" 
                       : "lg:pl-12 lg:text-left"
