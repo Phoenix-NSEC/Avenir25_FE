@@ -3,7 +3,7 @@ import type React from "react"
 import { Link } from "react-router-dom"
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { mAvenirBaseUrl } from "../config/api.ts"
+// import { mAvenirBaseUrl } from "../config/api.ts"
 import {
   Calendar,
   Users,
@@ -185,7 +185,8 @@ export default function EventsPage() {
     const fetchEvents = async () => {
       setIsLoading(true)
       try {
-        const response = await fetch(mAvenirBaseUrl + "/api/v1/events")
+        const response = await fetch("/base/api/v1/events")
+        // const response = await fetch(mAvenirBaseUrl + "/api/v1/events")
         if (!response.ok) {
           throw new Error("Network response was not ok")
         }
@@ -283,7 +284,7 @@ export default function EventsPage() {
         const formData = new FormData()
         formData.append("payment", paymentImage)
 
-        const uploadResponse = await fetch(mAvenirBaseUrl + "/api/v1/registration/upload", {
+        const uploadResponse = await fetch("/base/api/v1/registration/upload", {
           method: "POST",
           body: formData,
         })
@@ -329,8 +330,8 @@ export default function EventsPage() {
 
       // Submit registration
       const endpoint = isTeamEvent
-        ? mAvenirBaseUrl + "/api/v1/registration/multi"
-        : mAvenirBaseUrl + "/api/v1/registration/single"
+        ? "/base/api/v1/registration/multi"
+        : "/base/api/v1/registration/single"
 
       const response = await fetch(endpoint, {
         method: "POST",

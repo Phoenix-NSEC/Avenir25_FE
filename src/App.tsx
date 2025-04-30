@@ -8,6 +8,7 @@ import Loader from "./components/Loader";
 import AnimatedBackground from "./components/AnimatedBackground";
 import FAQ from "./components/FAQ";
 import Footer from "./components/Footer";
+import Events from "./components/Events";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -43,9 +44,9 @@ const App = () => {
       <section id="home">
         <Hero />
       </section>
-      {/* <section id="events">
+      <section id="events">
         <Events />
-      </section> */}
+      </section>
       <section id="timeline">
         <TimeLine />
       </section>

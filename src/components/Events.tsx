@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import { Calendar, Trophy, Users } from "lucide-react"
 import { Link } from "react-router-dom"
 import { EnchantedHeading } from "./EnchantedHeading"
-import {mAvenirBaseUrl} from "../config/api.ts"
+// import {mAvenirBaseUrl} from "../config/api.ts"
 // Event interface
 interface Event {
   _id: string
@@ -54,7 +54,7 @@ const colorSchemes = [
   }
 ]
 
-export default function AvenirTechFestEvents() {
+export default function Events() {
   const [events, setEvents] = useState<Event[]>([])
   const [loading, setLoading] = useState(true)
   const [eventCount, setEventCount] = useState(0)
@@ -65,7 +65,8 @@ export default function AvenirTechFestEvents() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await fetch(mAvenirBaseUrl+"/api/v1/events")
+        const response = await fetch("/base/api/v1/events")
+        // const response = await fetch(mAvenirBaseUrl+"/api/v1/events")
         const data = await response.json()
 
         if (data && data.events && data.events.length > 0) {
