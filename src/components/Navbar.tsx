@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
+import { toast } from "sonner";
+
 export default function Navbar({
   isVisibleprop = false,
 }: {
@@ -21,8 +23,8 @@ export default function Navbar({
     if (!isVisibleprop) {
       const timer = setTimeout(() => {
         setIsVisible(true);
-      }, 3500); 
-      
+      }, 3500);
+
       return () => clearTimeout(timer);
     } else {
       setIsVisible(isVisibleprop);
@@ -115,8 +117,9 @@ export default function Navbar({
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className={`relative rounded-3xl w-full transition-all duration-500 py-2 sm:py-3 md:py-4 px-4 sm:px-5 md:px-6 bg-black ${scrolled ? "bg-opacity-60 shadow-lg" : "bg-opacity-40"
-            }`}
+          className={`relative rounded-3xl w-full transition-all duration-500 py-2 sm:py-3 md:py-4 px-4 sm:px-5 md:px-6 bg-black ${
+            scrolled ? "bg-opacity-60 shadow-lg" : "bg-opacity-40"
+          }`}
         >
           <div className="relative flex justify-between items-center">
             <a href="/" className="flex items-center gap-1 md:gap-2 group">
@@ -156,10 +159,11 @@ export default function Navbar({
                     <HashLink
                       smooth
                       to={link.href}
-                      className={`relative text-sm lg:text-base transition-all duration-300 ${activeLink === link.href.substring(1)
+                      className={`relative text-sm lg:text-base transition-all duration-300 ${
+                        activeLink === link.href.substring(1)
                           ? "text-purple-400 font-medium"
                           : "text-gray-300 hover:text-white"
-                        }`}
+                      }`}
                     >
                       {link.name}
                       {activeLink === link.href.substring(1) && (
@@ -187,11 +191,10 @@ export default function Navbar({
               >
                 <Link
                   to={"/events"}
-                  // to="#"
-                  // onClick={(e) => {
-                  //   e.preventDefault();
-                  //   alert("Registration is opening soon!");
-                  // }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    toast.info("Registration is opening soon!");
+                  }}
                   className="relative overflow-hidden inline-flex items-center justify-center rounded-md font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-8 md:h-9 lg:h-10 px-4 md:px-5 text-xs md:text-sm bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white border-none shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transition-all duration-300"
                 >
                   <span className="relative z-10 flex items-center gap-1.5">
@@ -282,10 +285,11 @@ export default function Navbar({
                           <HashLink
                             smooth
                             to={link.href}
-                            className={`block py-3 px-4 sm:px-5 rounded-xl transition-all duration-300 text-sm sm:text-base ${activeLink === link.href.substring(1)
+                            className={`block py-3 px-4 sm:px-5 rounded-xl transition-all duration-300 text-sm sm:text-base ${
+                              activeLink === link.href.substring(1)
                                 ? "text-purple-400"
                                 : "text-gray-300 hover:text-white"
-                              }`}
+                            }`}
                             onClick={() => setIsOpen(false)}
                           >
                             <div className="flex items-center">

@@ -1,8 +1,7 @@
-
-import type React from "react"
-import { Link } from "react-router-dom"
-import { useState, useRef, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import type React from "react";
+import { Link } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 // import { mAvenirBaseUrl } from "../config/api.ts"
 import {
   Calendar,
@@ -17,59 +16,59 @@ import {
   Bookmark,
   ExternalLink,
   Home,
-} from "lucide-react"
-import MagicalCardEffect from "./magical-card-effect"
-import AnimatedBackground from "./AnimatedBackground"
-import { EnchantedHeading } from "./EnchantedHeading"
+} from "lucide-react";
+import MagicalCardEffect from "./magical-card-effect";
+import AnimatedBackground from "./AnimatedBackground";
+import { EnchantedHeading } from "./EnchantedHeading";
 // Define types based on the provided API response
 type Coordinator = {
-  name: string
-  number: string
-  _id: string
-}
+  name: string;
+  number: string;
+  _id: string;
+};
 
 type Event = {
-  _id: string
-  eventName: string
-  subCategory?: string
-  description: string
-  registrationFees: string
-  teamsize: string
-  rulebook: string
-  eventPoster: string
-  date: string
-  prizePool: string
-  coordinators: Coordinator[]
-}
+  _id: string;
+  eventName: string;
+  subCategory?: string;
+  description: string;
+  registrationFees: string;
+  teamsize: string;
+  rulebook: string;
+  eventPoster: string;
+  date: string;
+  prizePool: string;
+  coordinators: Coordinator[];
+};
 
 type Member = {
-  name: string
-  info: string
-}
+  name: string;
+  info: string;
+};
 
 type RegistrationSingleData = {
-  event: string
-  name: string
-  collegeName: string
-  whatsappNumber: string
-  alternateNumber: string
-  email: string
-  payment: string
-  isVerified: boolean
-}
+  event: string;
+  name: string;
+  collegeName: string;
+  whatsappNumber: string;
+  alternateNumber: string;
+  email: string;
+  payment: string;
+  isVerified: boolean;
+};
 
 type RegistrationTeamData = {
-  event: string
-  teamName: string
-  teamLeaderName: string
-  collegeName: string
-  whatsappNumber: string
-  alternateNumber: string
-  email: string
-  payment: string
-  isVerified: boolean
-  members: Member[]
-}
+  event: string;
+  teamName: string;
+  teamLeaderName: string;
+  collegeName: string;
+  whatsappNumber: string;
+  alternateNumber: string;
+  email: string;
+  payment: string;
+  isVerified: boolean;
+  members: Member[];
+};
 
 // Animation variants
 const containerVariants = {
@@ -80,7 +79,7 @@ const containerVariants = {
       staggerChildren: 0.1,
     },
   },
-}
+};
 
 const itemVariants = {
   hidden: { y: 20, opacity: 0 },
@@ -93,7 +92,7 @@ const itemVariants = {
       damping: 12,
     },
   },
-}
+};
 
 const cardHoverVariants = {
   rest: {
@@ -115,29 +114,29 @@ const cardHoverVariants = {
       damping: 10,
     },
   },
-}
+};
 
 // Default event image
-const DEFAULT_EVENT_IMAGE = '/images/About_Img.png';
-const logo = "/images/logo.png"
-
-
+const DEFAULT_EVENT_IMAGE = "/images/About_Img.png";
+const logo = "/images/logo.png";
 
 export default function EventsPage() {
-  const [events, setEvents] = useState<Event[]>([])
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
-  const [categories, setCategories] = useState<string[]>([])
-  const [activeCategory, setActiveCategory] = useState<string>("All")
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [isMobileFilters, setIsMobileFilters] = useState(false)
-  const modalRef = useRef<HTMLDivElement>(null)
+  const [events, setEvents] = useState<Event[]>([]);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobileFilters, setIsMobileFilters] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // For registration form
-  const [showRegistrationForm, setShowRegistrationForm] = useState(false)
-  const [formData, setFormData] = useState<RegistrationSingleData | RegistrationTeamData>({
+  const [showRegistrationForm, setShowRegistrationForm] = useState(false);
+  const [formData, setFormData] = useState<
+    RegistrationSingleData | RegistrationTeamData
+  >({
     event: "",
     name: "",
     collegeName: "",
@@ -146,69 +145,75 @@ export default function EventsPage() {
     email: "",
     payment: "unpaid",
     isVerified: false,
-  })
-  const [teamMembers, setTeamMembers] = useState<Member[]>([{ name: "", info: "" }])
-  const [paymentImage, setPaymentImage] = useState<File | null>(null)
-  const [registrationSuccess, setRegistrationSuccess] = useState(false)
-  const [registrationError, setRegistrationError] = useState<string | null>(null)
+  });
+  const [teamMembers, setTeamMembers] = useState<Member[]>([
+    { name: "", info: "" },
+  ]);
+  const [paymentImage, setPaymentImage] = useState<File | null>(null);
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [registrationError, setRegistrationError] = useState<string | null>(
+    null
+  );
 
   // Close registration form when scrolling
   useEffect(() => {
     const handleScroll = () => {
       if (showRegistrationForm) {
-        setShowRegistrationForm(false)
+        setShowRegistrationForm(false);
       }
-    }
+    };
 
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [showRegistrationForm])
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [showRegistrationForm]);
 
   // Close modals when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-        setShowRegistrationForm(false)
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        setShowRegistrationForm(false);
       }
-    }
+    };
 
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Fetch all events
   useEffect(() => {
     const fetchEvents = async () => {
-      setIsLoading(true)
+      setIsLoading(true);
       try {
-        const response = await fetch("/base/api/v1/events")
+        const response = await fetch("/base/api/v1/events");
         // const response = await fetch(mAvenirBaseUrl + "/api/v1/events")
         if (!response.ok) {
-          throw new Error("Network response was not ok")
+          throw new Error("Network response was not ok");
         }
-        const data = await response.json()
-        setEvents(data.events)
+        const data = await response.json();
+        setEvents(data.events);
 
         // Extract unique categories from subCategory field
         const uniqueCategories: string[] = Array.from(
-          new Set(data.events.map((event: Event) => event.subCategory)),
-        ).filter(Boolean) as string[]
+          new Set(data.events.map((event: Event) => event.subCategory))
+        ).filter(Boolean) as string[];
 
-        setCategories(uniqueCategories)
+        setCategories(uniqueCategories);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred")
+        setError(err instanceof Error ? err.message : "An error occurred");
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
-    fetchEvents()
-  }, [])
-
+    fetchEvents();
+  }, []);
 
   // Add this useEffect to close event details modal on scroll
   useEffect(() => {
@@ -225,113 +230,123 @@ export default function EventsPage() {
   }, [selectedEvent]);
   // Filter events based on selected category
   const filteredEvents =
-    activeCategory === "All" ? events : events.filter((event) => event.subCategory === activeCategory)
+    activeCategory === "All"
+      ? events
+      : events.filter((event) => event.subCategory === activeCategory);
 
   // Format date string to a more readable format
   const formatDate = (dateString: string) => {
     try {
-      const date = new Date(dateString)
+      const date = new Date(dateString);
       return date.toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
         day: "numeric",
-      })
+      });
     } catch (e) {
-      return dateString
+      console.log(e);
+      return dateString;
     }
-  }
+  };
 
   // Handle form input changes for individual registration
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-  }
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   // Handle team member changes
-  const handleTeamMemberChange = (index: number, field: string, value: string) => {
-    const updatedMembers = [...teamMembers]
-    updatedMembers[index] = { ...updatedMembers[index], [field]: value }
-    setTeamMembers(updatedMembers)
-  }
+  const handleTeamMemberChange = (
+    index: number,
+    field: string,
+    value: string
+  ) => {
+    const updatedMembers = [...teamMembers];
+    updatedMembers[index] = { ...updatedMembers[index], [field]: value };
+    setTeamMembers(updatedMembers);
+  };
 
   // Add new team member field
   const addTeamMember = () => {
-    setTeamMembers([...teamMembers, { name: "", info: "" }])
-  }
+    setTeamMembers([...teamMembers, { name: "", info: "" }]);
+  };
 
   // Remove team member field
   const removeTeamMember = (index: number) => {
-    const updatedMembers = teamMembers.filter((_, i) => i !== index)
-    setTeamMembers(updatedMembers)
-  }
+    const updatedMembers = teamMembers.filter((_, i) => i !== index);
+    setTeamMembers(updatedMembers);
+  };
 
   // Handle payment image upload
   const handlePaymentImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setPaymentImage(e.target.files[0])
+      setPaymentImage(e.target.files[0]);
     }
-  }
+  };
 
   // Handle registration form submission
   const handleRegistrationSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setRegistrationError(null)
+    e.preventDefault();
+    setRegistrationError(null);
     setIsSubmitting(true);
     try {
       // Upload payment image first if available
-      let paymentUrl = ""
+      let paymentUrl = "";
       if (paymentImage) {
-        const formData = new FormData()
-        formData.append("payment", paymentImage)
+        const formData = new FormData();
+        formData.append("payment", paymentImage);
 
         const uploadResponse = await fetch("/base/api/v1/registration/upload", {
           method: "POST",
           body: formData,
-        })
+        });
 
         if (!uploadResponse.ok) {
-          throw new Error("Payment image upload failed")
+          throw new Error("Payment image upload failed");
         }
 
-        const uploadData = await uploadResponse.json()
-        paymentUrl = uploadData.data.url
+        const uploadData = await uploadResponse.json();
+        paymentUrl = uploadData.data.url;
       }
 
       // Check if it's a team event based on teamsize
       const isTeamEvent =
         selectedEvent?.teamsize &&
         selectedEvent.teamsize.includes("-") &&
-        Number.parseInt(selectedEvent.teamsize.split("-")[1]) > 1
+        Number.parseInt(selectedEvent.teamsize.split("-")[1]) > 1;
 
       // Prepare registration data
       const registrationData = isTeamEvent
         ? {
-          event: selectedEvent?.eventName || "",
-          teamName: (formData as RegistrationTeamData).teamName || "",
-          teamLeaderName: (formData as RegistrationTeamData).teamLeaderName || "",
-          collegeName: formData.collegeName,
-          whatsappNumber: formData.whatsappNumber,
-          alternateNumber: formData.alternateNumber,
-          email: formData.email,
-          payment: paymentUrl ? "paid" : "unpaid",
-          isVerified: false,
-          members: teamMembers,
-        }
+            event: selectedEvent?.eventName || "",
+            teamName: (formData as RegistrationTeamData).teamName || "",
+            teamLeaderName:
+              (formData as RegistrationTeamData).teamLeaderName || "",
+            collegeName: formData.collegeName,
+            whatsappNumber: formData.whatsappNumber,
+            alternateNumber: formData.alternateNumber,
+            email: formData.email,
+            payment: paymentUrl ? "paid" : "unpaid",
+            isVerified: false,
+            members: teamMembers,
+          }
         : {
-          event: selectedEvent?.eventName || "",
-          name: (formData as RegistrationSingleData).name || "",
-          collegeName: formData.collegeName,
-          whatsappNumber: formData.whatsappNumber,
-          alternateNumber: formData.alternateNumber,
-          email: formData.email,
-          payment: paymentUrl ? "paid" : "unpaid",
-          isVerified: false,
-        }
+            event: selectedEvent?.eventName || "",
+            name: (formData as RegistrationSingleData).name || "",
+            collegeName: formData.collegeName,
+            whatsappNumber: formData.whatsappNumber,
+            alternateNumber: formData.alternateNumber,
+            email: formData.email,
+            payment: paymentUrl ? "paid" : "unpaid",
+            isVerified: false,
+          };
 
       // Submit registration
       const endpoint = isTeamEvent
         ? "/base/api/v1/registration/multi"
-        : "/base/api/v1/registration/single"
+        : "/base/api/v1/registration/single";
 
       const response = await fetch(endpoint, {
         method: "POST",
@@ -339,16 +354,16 @@ export default function EventsPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(registrationData),
-      })
+      });
 
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.message || "Registration failed")
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Registration failed");
       }
 
       // Registration successful
-      setRegistrationSuccess(true)
-      setShowRegistrationForm(false)
+      setRegistrationSuccess(true);
+      setShowRegistrationForm(false);
 
       // Reset form
       setFormData({
@@ -360,28 +375,30 @@ export default function EventsPage() {
         email: "",
         payment: "unpaid",
         isVerified: false,
-      })
-      setTeamMembers([{ name: "", info: "" }])
-      setPaymentImage(null)
+      });
+      setTeamMembers([{ name: "", info: "" }]);
+      setPaymentImage(null);
       setRegistrationSuccess(true);
       setShowRegistrationForm(false);
     } catch (err) {
-      setRegistrationError(err instanceof Error ? err.message : "Registration failed")
+      setRegistrationError(
+        err instanceof Error ? err.message : "Registration failed"
+      );
     } finally {
       setIsSubmitting(false);
     }
-  }
+  };
 
   // Open registration form
   const openRegistrationForm = () => {
     if (selectedEvent) {
-      setShowRegistrationForm(true)
+      setShowRegistrationForm(true);
 
       // Check if it's a team event based on teamsize
       const isTeamEvent =
         selectedEvent.teamsize &&
         selectedEvent.teamsize.includes("-") &&
-        Number.parseInt(selectedEvent.teamsize.split("-")[1]) > 1
+        Number.parseInt(selectedEvent.teamsize.split("-")[1]) > 1;
 
       // Initialize form data based on event type
       if (isTeamEvent) {
@@ -396,8 +413,8 @@ export default function EventsPage() {
           payment: "unpaid",
           isVerified: false,
           members: [],
-        })
-        setTeamMembers([{ name: "", info: "" }])
+        });
+        setTeamMembers([{ name: "", info: "" }]);
       } else {
         setFormData({
           event: selectedEvent.eventName,
@@ -408,10 +425,10 @@ export default function EventsPage() {
           email: "",
           payment: "unpaid",
           isVerified: false,
-        })
+        });
       }
     }
-  }
+  };
 
   // Magical floating particles component
   const MagicalParticles = () => (
@@ -439,13 +456,17 @@ export default function EventsPage() {
         />
       ))}
     </>
-  )
+  );
 
   if (isLoading) {
     return (
       <section className="py-16 px-4 sm:px-6 relative overflow-hidden min-h-[60vh] flex items-center justify-center">
         <AnimatedBackground />
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center relative z-10">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-center relative z-10"
+        >
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -456,7 +477,7 @@ export default function EventsPage() {
           </motion.p>
         </motion.div>
       </section>
-    )
+    );
   }
 
   if (error) {
@@ -482,7 +503,9 @@ export default function EventsPage() {
                 <X className="h-8 w-8 text-red-300" />
               </div>
             </motion.div>
-            <h3 className="text-xl font-semibold text-center text-red-300 mb-2">Failed to Load Events</h3>
+            <h3 className="text-xl font-semibold text-center text-red-300 mb-2">
+              Failed to Load Events
+            </h3>
             <p className="text-red-200 text-center mb-6">{error}</p>
             <button
               className="w-full py-3 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-lg hover:from-red-600 hover:to-pink-600 transition-all duration-300 font-medium"
@@ -493,7 +516,7 @@ export default function EventsPage() {
           </div>
         </motion.div>
       </section>
-    )
+    );
   }
 
   return (
@@ -517,7 +540,10 @@ export default function EventsPage() {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10 px-4 sm:px-6 py-16" ref={containerRef}>
+      <div
+        className="max-w-7xl mx-auto relative z-10 px-4 sm:px-6 py-16"
+        ref={containerRef}
+      >
         {/* Back to Home Button */}
         <div className="mb-6 flex justify-start">
           <Link
@@ -545,7 +571,9 @@ export default function EventsPage() {
                 <div className="bg-green-500/20 p-2 rounded-full">
                   <Sparkles className="h-5 w-5 text-green-400" />
                 </div>
-                <p className="text-green-300 font-medium">Registration submitted successfully!</p>
+                <p className="text-green-300 font-medium">
+                  Registration submitted successfully!
+                </p>
                 <button
                   className="ml-auto px-3 py-1 bg-green-500/20 text-green-300 rounded-full hover:bg-green-500/30 transition-colors"
                   onClick={() => setRegistrationSuccess(false)}
@@ -588,13 +616,14 @@ export default function EventsPage() {
               >
                 <div className="grid grid-cols-2 gap-2 mt-3 p-2 bg-gray-800/30 rounded-xl border border-purple-500/10">
                   <button
-                    className={`p-3 rounded-lg transition-all duration-300 ${activeCategory === "All"
+                    className={`p-3 rounded-lg transition-all duration-300 capitalize cursor-pointer ${
+                      activeCategory === "All"
                         ? "bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-medium shadow-lg shadow-purple-500/20"
                         : "bg-gray-800/50 text-gray-300 hover:bg-gray-700/50"
-                      }`}
+                    }`}
                     onClick={() => {
-                      setActiveCategory("All")
-                      setIsMobileFilters(false)
+                      setActiveCategory("All");
+                      setIsMobileFilters(false);
                     }}
                   >
                     All Events
@@ -602,13 +631,14 @@ export default function EventsPage() {
                   {categories.map((category, index) => (
                     <button
                       key={category || index}
-                      className={`p-3 rounded-lg transition-all duration-300 ${activeCategory === category
+                      className={`p-3 rounded-lg transition-all duration-300 capitalize cursor-pointer ${
+                        activeCategory === category
                           ? "bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-medium shadow-lg shadow-purple-500/20"
                           : "bg-gray-800/50 text-gray-300 hover:bg-gray-700/50"
-                        }`}
+                      }`}
                       onClick={() => {
-                        setActiveCategory(category)
-                        setIsMobileFilters(false)
+                        setActiveCategory(category);
+                        setIsMobileFilters(false);
                       }}
                     >
                       {category}
@@ -631,10 +661,11 @@ export default function EventsPage() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
-            className={`px-5 py-2.5 rounded-full transition-all duration-300 ${activeCategory === "All"
+            className={`px-5 py-2.5 rounded-full transition-all duration-300 capitalize cursor-pointer ${
+              activeCategory === "All"
                 ? "bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-medium shadow-lg shadow-purple-500/20"
                 : "border border-purple-500/30 text-white hover:bg-purple-500/10"
-              }`}
+            }`}
             onClick={() => setActiveCategory("All")}
           >
             All Events
@@ -644,10 +675,11 @@ export default function EventsPage() {
               key={category || index}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
-              className={`px-5 py-2.5 rounded-full transition-all duration-300 ${activeCategory === category
+              className={`px-5 py-2.5 rounded-full transition-all duration-300 capitalize cursor-pointer ${
+                activeCategory === category
                   ? "bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-medium shadow-lg shadow-purple-500/20"
                   : "border border-purple-500/30 text-white hover:bg-purple-500/10"
-                }`}
+              }`}
               onClick={() => setActiveCategory(category)}
             >
               {category}
@@ -664,8 +696,14 @@ export default function EventsPage() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
         >
           {filteredEvents.length === 0 ? (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="col-span-3 text-center py-16">
-              <p className="text-gray-400 text-lg">No events found in this category.</p>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="col-span-3 text-center py-16"
+            >
+              <p className="text-gray-400 text-lg">
+                No events found in this category.
+              </p>
             </motion.div>
           ) : (
             filteredEvents.map((event, index) => (
@@ -692,10 +730,21 @@ export default function EventsPage() {
                           {event.subCategory || "Event"}
                         </motion.span>
                       </div>
-                      <motion.div className="absolute top-4 right-4 z-20" whileHover={{ scale: 1.2 }}>
-                        <img src={logo || "/placeholder.svg"} alt="Logo" className="h-5 w-5" />
+                      <motion.div
+                        className="absolute top-4 right-4 z-20"
+                        whileHover={{ scale: 1.2 }}
+                      >
+                        <img
+                          src={logo || "/placeholder.svg"}
+                          alt="Logo"
+                          className="h-5 w-5"
+                        />
                       </motion.div>
-                      <motion.div whileHover={{ scale: 1.08 }} transition={{ duration: 0.6 }} className="w-full h-full">
+                      <motion.div
+                        whileHover={{ scale: 1.08 }}
+                        transition={{ duration: 0.6 }}
+                        className="w-full h-full"
+                      >
                         <img
                           src={DEFAULT_EVENT_IMAGE || "/images/About_Img.png"}
                           alt={event.eventName}
@@ -826,21 +875,31 @@ export default function EventsPage() {
                         <Calendar className="h-5 w-5 text-purple-400" />
                         <span className="font-medium text-white">Date</span>
                       </div>
-                      <p className="text-gray-300 pl-8">{formatDate(selectedEvent.date)}</p>
+                      <p className="text-gray-300 pl-8">
+                        {formatDate(selectedEvent.date)}
+                      </p>
                     </div>
                     <div className="bg-white/5 p-4 rounded-xl border border-purple-500/20 hover:border-purple-500/40 transition-colors duration-300 transform hover:scale-[1.02]">
                       <div className="flex items-center gap-3 mb-2">
                         <Award className="h-5 w-5 text-purple-400" />
-                        <span className="font-medium text-white">Prize Pool</span>
+                        <span className="font-medium text-white">
+                          Prize Pool
+                        </span>
                       </div>
-                      <p className="text-gray-300 pl-8">{selectedEvent.prizePool}</p>
+                      <p className="text-gray-300 pl-8">
+                        {selectedEvent.prizePool}
+                      </p>
                     </div>
                     <div className="bg-white/5 p-4 rounded-xl border border-purple-500/20 hover:border-purple-500/40 transition-colors duration-300 transform hover:scale-[1.02]">
                       <div className="flex items-center gap-3 mb-2">
                         <Users className="h-5 w-5 text-purple-400" />
-                        <span className="font-medium text-white">Team Size</span>
+                        <span className="font-medium text-white">
+                          Team Size
+                        </span>
                       </div>
-                      <p className="text-gray-300 pl-8">{selectedEvent.teamsize}</p>
+                      <p className="text-gray-300 pl-8">
+                        {selectedEvent.teamsize}
+                      </p>
                     </div>
                     <div className="bg-white/5 p-4 rounded-xl border border-purple-500/20 hover:border-purple-500/40 transition-colors duration-300 transform hover:scale-[1.02]">
                       <div className="flex items-center gap-3 mb-2">
@@ -866,7 +925,9 @@ export default function EventsPage() {
                     transition={{ delay: 0.4 }}
                     className="mb-8"
                   >
-                    <h4 className="text-lg font-semibold text-white mb-3">Event Coordinators</h4>
+                    <h4 className="text-lg font-semibold text-white mb-3">
+                      Event Coordinators
+                    </h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {selectedEvent.coordinators.map((coordinator, index) => (
                         <div
@@ -877,8 +938,12 @@ export default function EventsPage() {
                             <User className="h-5 w-5 text-purple-400" />
                           </div>
                           <div>
-                            <p className="text-white font-medium">{coordinator.name}</p>
-                            <p className="text-gray-400 text-sm">{coordinator.number}</p>
+                            <p className="text-white font-medium">
+                              {coordinator.name}
+                            </p>
+                            <p className="text-gray-400 text-sm">
+                              {coordinator.number}
+                            </p>
                           </div>
                         </div>
                       ))}
@@ -964,7 +1029,10 @@ export default function EventsPage() {
                     </motion.div>
                   )}
 
-                  <form onSubmit={handleRegistrationSubmit} className="space-y-6">
+                  <form
+                    onSubmit={handleRegistrationSubmit}
+                    className="space-y-6"
+                  >
                     {/* Check if it's a team event based on teamsize */}
                     {!(
                       selectedEvent.teamsize &&
@@ -978,7 +1046,10 @@ export default function EventsPage() {
                         className="space-y-4"
                       >
                         <div>
-                          <label htmlFor="name" className="block text-gray-300 mb-2 font-medium">
+                          <label
+                            htmlFor="name"
+                            className="block text-gray-300 mb-2 font-medium"
+                          >
                             Your Name
                           </label>
                           <input
@@ -986,7 +1057,9 @@ export default function EventsPage() {
                             id="name"
                             name="name"
                             required
-                            value={(formData as RegistrationSingleData).name || ""}
+                            value={
+                              (formData as RegistrationSingleData).name || ""
+                            }
                             onChange={handleInputChange}
                             className="w-full bg-gray-800/50 border border-purple-500/30 rounded-xl p-3 text-white focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
                           />
@@ -1001,7 +1074,10 @@ export default function EventsPage() {
                         className="space-y-6"
                       >
                         <div>
-                          <label htmlFor="teamName" className="block text-gray-300 mb-2 font-medium">
+                          <label
+                            htmlFor="teamName"
+                            className="block text-gray-300 mb-2 font-medium"
+                          >
                             Team Name
                           </label>
                           <input
@@ -1009,13 +1085,18 @@ export default function EventsPage() {
                             id="teamName"
                             name="teamName"
                             required
-                            value={(formData as RegistrationTeamData).teamName || ""}
+                            value={
+                              (formData as RegistrationTeamData).teamName || ""
+                            }
                             onChange={handleInputChange}
                             className="w-full bg-gray-800/50 border border-purple-500/30 rounded-xl p-3 text-white focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
                           />
                         </div>
                         <div>
-                          <label htmlFor="teamLeaderName" className="block text-gray-300 mb-2 font-medium">
+                          <label
+                            htmlFor="teamLeaderName"
+                            className="block text-gray-300 mb-2 font-medium"
+                          >
                             Team Leader Name
                           </label>
                           <input
@@ -1023,7 +1104,10 @@ export default function EventsPage() {
                             id="teamLeaderName"
                             name="teamLeaderName"
                             required
-                            value={(formData as RegistrationTeamData).teamLeaderName || ""}
+                            value={
+                              (formData as RegistrationTeamData)
+                                .teamLeaderName || ""
+                            }
                             onChange={handleInputChange}
                             className="w-full bg-gray-800/50 border border-purple-500/30 rounded-xl p-3 text-white focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
                           />
@@ -1032,7 +1116,9 @@ export default function EventsPage() {
                         {/* Team members */}
                         <div className="space-y-4">
                           <div className="flex justify-between items-center">
-                            <label className="block text-gray-300 font-medium">Team Members</label>
+                            <label className="block text-gray-300 font-medium">
+                              Team Members
+                            </label>
                             <motion.button
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
@@ -1053,7 +1139,9 @@ export default function EventsPage() {
                               className="p-4 bg-gray-800/30 border border-purple-500/20 rounded-xl"
                             >
                               <div className="flex justify-between items-center mb-3">
-                                <h4 className="text-gray-300 font-medium">Member {index + 1}</h4>
+                                <h4 className="text-gray-300 font-medium">
+                                  Member {index + 1}
+                                </h4>
                                 {index > 0 && (
                                   <motion.button
                                     whileHover={{ scale: 1.1, rotate: 90 }}
@@ -1068,21 +1156,37 @@ export default function EventsPage() {
                               </div>
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                  <label className="block text-gray-400 text-sm mb-1">Name</label>
+                                  <label className="block text-gray-400 text-sm mb-1">
+                                    Name
+                                  </label>
                                   <input
                                     type="text"
                                     required
                                     value={member.name}
-                                    onChange={(e) => handleTeamMemberChange(index, "name", e.target.value)}
+                                    onChange={(e) =>
+                                      handleTeamMemberChange(
+                                        index,
+                                        "name",
+                                        e.target.value
+                                      )
+                                    }
                                     className="w-full bg-gray-800/50 border border-purple-500/30 rounded-lg p-2.5 text-white focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
                                   />
                                 </div>
                                 <div>
-                                  <label className="block text-gray-400 text-sm mb-1">Role/Info</label>
+                                  <label className="block text-gray-400 text-sm mb-1">
+                                    Role/Info
+                                  </label>
                                   <input
                                     type="text"
                                     value={member.info}
-                                    onChange={(e) => handleTeamMemberChange(index, "info", e.target.value)}
+                                    onChange={(e) =>
+                                      handleTeamMemberChange(
+                                        index,
+                                        "info",
+                                        e.target.value
+                                      )
+                                    }
                                     className="w-full bg-gray-800/50 border border-purple-500/30 rounded-lg p-2.5 text-white focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
                                   />
                                 </div>
@@ -1101,7 +1205,10 @@ export default function EventsPage() {
                       className="grid grid-cols-1 md:grid-cols-2 gap-5"
                     >
                       <div>
-                        <label htmlFor="collegeName" className="block text-gray-300 mb-2 font-medium">
+                        <label
+                          htmlFor="collegeName"
+                          className="block text-gray-300 mb-2 font-medium"
+                        >
                           College Name
                         </label>
                         <input
@@ -1115,7 +1222,10 @@ export default function EventsPage() {
                         />
                       </div>
                       <div>
-                        <label htmlFor="email" className="block text-gray-300 mb-2 font-medium">
+                        <label
+                          htmlFor="email"
+                          className="block text-gray-300 mb-2 font-medium"
+                        >
                           Email
                         </label>
                         <input
@@ -1129,7 +1239,10 @@ export default function EventsPage() {
                         />
                       </div>
                       <div>
-                        <label htmlFor="whatsappNumber" className="block text-gray-300 mb-2 font-medium">
+                        <label
+                          htmlFor="whatsappNumber"
+                          className="block text-gray-300 mb-2 font-medium"
+                        >
                           WhatsApp Number
                         </label>
                         <input
@@ -1143,7 +1256,10 @@ export default function EventsPage() {
                         />
                       </div>
                       <div>
-                        <label htmlFor="alternateNumber" className="block text-gray-300 mb-2 font-medium">
+                        <label
+                          htmlFor="alternateNumber"
+                          className="block text-gray-300 mb-2 font-medium"
+                        >
                           Alternate Number
                         </label>
                         <input
@@ -1163,7 +1279,10 @@ export default function EventsPage() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.3 }}
                     >
-                      <label htmlFor="paymentProof" className="block text-gray-300 mb-2 font-medium">
+                      <label
+                        htmlFor="paymentProof"
+                        className="block text-gray-300 mb-2 font-medium"
+                      >
                         Payment Proof ({selectedEvent.registrationFees})
                       </label>
                       <motion.div
@@ -1177,7 +1296,10 @@ export default function EventsPage() {
                           onChange={handlePaymentImageChange}
                           className="hidden"
                         />
-                        <label htmlFor="paymentProof" className="cursor-pointer">
+                        <label
+                          htmlFor="paymentProof"
+                          className="cursor-pointer"
+                        >
                           <div className="flex flex-col items-center justify-center gap-3">
                             {paymentImage ? (
                               <motion.div
@@ -1186,7 +1308,10 @@ export default function EventsPage() {
                                 className="w-full"
                               >
                                 <img
-                                  src={URL.createObjectURL(paymentImage) || "/placeholder.svg"}
+                                  src={
+                                    URL.createObjectURL(paymentImage) ||
+                                    "/placeholder.svg"
+                                  }
                                   alt="Payment proof"
                                   className="max-h-40 object-contain mb-3 mx-auto rounded-lg border border-purple-500/30"
                                 />
@@ -1203,8 +1328,12 @@ export default function EventsPage() {
                                 >
                                   <ArrowRight className="h-6 w-6 text-purple-400" />
                                 </motion.div>
-                                <p className="text-gray-300 font-medium">Click to upload payment proof</p>
-                                <p className="text-xs text-gray-500">Supported formats: JPG, PNG</p>
+                                <p className="text-gray-300 font-medium">
+                                  Click to upload payment proof
+                                </p>
+                                <p className="text-xs text-gray-500">
+                                  Supported formats: JPG, PNG
+                                </p>
                               </>
                             )}
                           </div>
@@ -1228,9 +1357,25 @@ export default function EventsPage() {
                       >
                         {isSubmitting ? (
                           <>
-                            <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            <svg
+                              className="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                              ></circle>
+                              <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                              ></path>
                             </svg>
                             Submitting...
                           </>
@@ -1247,5 +1392,5 @@ export default function EventsPage() {
         </AnimatePresence>
       </div>
     </section>
-  )
+  );
 }

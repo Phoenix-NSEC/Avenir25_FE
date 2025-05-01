@@ -179,7 +179,7 @@ const Hero = () => {
                 </div>
               </div>
 
-              <p className="text-base md:text-lg lg:text-xl text-purple-200 mb-6 leading-relaxed">
+              <p className="text-base md:text-lg lg:text-xl text-purple-50 mb-6 leading-relaxed">
                 The annual Tech Fest of NSEC (Netaji Subhash Engineering
                 College) organized by Phoenix. Join us for 24 hours of coding,
                 creativity, and collaboration.

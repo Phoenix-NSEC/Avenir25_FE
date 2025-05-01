@@ -1,14 +1,16 @@
 import { AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { Toaster } from "sonner";
+
 import About from "./components/About";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 import TimeLine from "./components/TimeLine";
-import { useEffect, useState } from "react";
 import Loader from "./components/Loader";
 import AnimatedBackground from "./components/AnimatedBackground";
 import FAQ from "./components/FAQ";
 import Footer from "./components/Footer";
-import Events from "./components/Events";
+// import Events from "./components/Events";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -44,9 +46,9 @@ const App = () => {
       <section id="home">
         <Hero />
       </section>
-      <section id="events">
+      {/* <section id="events">
         <Events />
-      </section>
+      </section> */}
       <section id="timeline">
         <TimeLine />
       </section>
@@ -62,6 +64,7 @@ const App = () => {
       <section id="footer">
         <Footer />
       </section>
+      <Toaster richColors position="top-right" />
     </div>
   );
 };
